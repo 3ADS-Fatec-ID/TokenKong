@@ -1,0 +1,22 @@
+* {
+    -fx-drawer-width: 200.0;
+    -fx-drawer-background-color: "#fff";
+}
+#drawer {
+    -fx-max-width: -fx-drawer-width;
+    -fx-background-color: -fx-drawer-background-color;
+    -fx-border-width: 3;
+    -fx-alignment: top left ;
+}
+
+.drawer_button {
+    -fx-pref-height: 32;
+    -fx-alignment:left;
+    -fx-pref-width: -fx-drawer-width;
+    -fx-background-color: "transparent";
+    -fx-background-radius: 0;
+    -fx-cursor:"hand";
+}
+.drawer_button:hover {
+    -fx-background-color: derive(-fx-drawer-background-color, -2%);
+}

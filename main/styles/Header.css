@@ -1,0 +1,23 @@
+* {
+    -fx-drawer-button: 32;
+    -fx-header-height: 42;
+    -fx-header-background-color: "#fff";
+}
+
+#header {
+    -fx-pref-height: -fx-header-height;
+    -fx-background-color: -fx-header-background-color;
+    -fx-padding-left: 4;
+    -fx-padding-right: 4;
+}
+
+#drawer_toggler {
+    -fx-pref-width: -fx-drawer-button;
+    -fx-pref-height: -fx-drawer-button;
+    -fx-background-color:"transparent";
+    -fx-background-image:url("../assets/icons/menu.png");
+    -fx-background-position: center;
+    -fx-background-size: -fx-drawer-button;
+    -fx-background-repeat: no-repeat;
+    -fx-cursor:"hand";
+}

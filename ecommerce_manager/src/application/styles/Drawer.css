@@ -11,7 +11,7 @@
 
 .drawer_button {
     -fx-pref-height: 32;
-    -fx-alignment:left;
+    -fx-alignment: left;
     -fx-pref-width: -fx-drawer-width;
     -fx-background-color: "transparent";
     -fx-background-radius: 0;

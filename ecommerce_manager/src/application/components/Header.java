@@ -1,4 +1,4 @@
-package main.components;
+package application.components;
 
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 public class Header extends Pane {
     public Header( Button drawer_toggler ){
 
-        getStylesheets().add(Drawer.class.getResource("../styles/Header.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/application/styles/Header.css").toExternalForm());
         
         //create the header shadow
         DropShadow drop = new DropShadow();
@@ -23,7 +23,7 @@ public class Header extends Pane {
         drop.setRadius(5);
         
         // create the header button handler
-        Image image = new Image("main/assets/icons/menu.png");
+        Image image = new Image("application/assets/icons/menu.png");
         ImageView icon = new ImageView(image);
         drawer_toggler.setGraphic(icon);
         drawer_toggler.setId("drawer_toggler");

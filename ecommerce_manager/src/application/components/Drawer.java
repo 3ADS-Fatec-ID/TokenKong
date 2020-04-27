@@ -1,4 +1,4 @@
-package main.components;
+package application.components;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -17,7 +17,7 @@ public class Drawer extends VBox {
 
     public void generateButtons(String[][] buttonsData) {
         for(Integer i = 0; i < buttonsData.length; i++){
-            Image image = new Image("main/assets/icons/"+buttonsData[i][1]);
+            Image image = new Image("application/assets/icons/"+buttonsData[i][1]);
             ImageView imageView = new ImageView(image);
             Button button = new Button(buttonsData[i][0], imageView);
             button.getStyleClass().add("drawer_button");
@@ -28,7 +28,7 @@ public class Drawer extends VBox {
 
     /** creates a Drawer containing a vertical alignment of the given nodes */
     public Drawer(Node... nodes) {
-        getStylesheets().add(Drawer.class.getResource("../styles/Drawer.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/application/styles/Drawer.css").toExternalForm());
         getChildren().addAll(nodes);
 
         // create and set a button to hide and show

@@ -1,4 +1,4 @@
-package main.components;
+package application.components;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
@@ -13,7 +13,7 @@ public class Breadcrumb extends FlowPane{
     public void generateCrumbs( String [][] crumbsData ){
         for( Integer i = 0; i < crumbsData.length; i++ ){
             
-            Image image = new Image("main/assets/icons/"+crumbsData[i][1]);
+            Image image = new Image("application/assets/icons/"+crumbsData[i][1]);
             
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(24);
@@ -32,7 +32,7 @@ public class Breadcrumb extends FlowPane{
     }
 
     public Breadcrumb(){
-        getStylesheets().add(Breadcrumb.class.getResource("../styles/Breadcrumb.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/application/styles/Breadcrumb.css").toExternalForm());
         setOrientation(Orientation.HORIZONTAL);
         paddingProperty().setValue(new Insets(16,16,16,16));
         setVgap(0);

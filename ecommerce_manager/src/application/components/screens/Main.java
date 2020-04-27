@@ -1,4 +1,4 @@
-package main.components.screens;
+package application.components.screens;
 
 import javafx.application.Application;
 import javafx.scene.image.ImageView;
@@ -8,9 +8,9 @@ import javafx.scene.layout.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import main.components.*;
+import application.components.*;
 
-public class Principal extends Application {
+public class Main extends Application {
   public static void main(String[] args) throws Exception { 
     launch(args); 
   }
@@ -35,7 +35,7 @@ public class Principal extends Application {
     VBox.setVgrow(region, Priority.ALWAYS);
 
     //logout button
-    Image image = new Image("main/assets/icons/logout.png");
+    Image image = new Image("application/assets/icons/logout.png");
     ImageView icon = new ImageView(image);
     Button logout_button = new Button("Logout", icon);
     logout_button.getStyleClass().add("drawer_button");
@@ -63,7 +63,7 @@ public class Principal extends Application {
     border.topProperty().set(header);
     // add the border pane to the scene
     Scene scene = new Scene(border);
-    scene.getStylesheets().add(Principal.class.getResource("../../styles/Principal.css").toExternalForm());
+    scene.getStylesheets().add(getClass().getResource("/application/styles/Main.css").toExternalForm());
     stage.setScene(scene);
     stage.show();
   }

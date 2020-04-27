@@ -1,15 +1,15 @@
-package main.components.screens;
+package application.components.screens;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
-import main.components.*;
+import application.components.*;
 
 public class Products extends VBox {
 
     public Products( Node... nodes ){
         paddingProperty().setValue(new Insets(0, 30, 0, 30));
-        getStylesheets().add(Products.class.getResource("../../styles/Products.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/application/styles/Products.css").toExternalForm());
         
         // create the breadcrumb fields
         String [][] crumbsData = {

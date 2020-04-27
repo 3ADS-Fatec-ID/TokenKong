@@ -6,12 +6,13 @@
     -fx-max-width: -fx-drawer-width;
     -fx-background-color: -fx-drawer-background-color;
     -fx-border-width: 3;
-    -fx-alignment: top left ;
+     -fx-translate-x: -200;
+    -fx-alignment: top-left ;
 }
 
 .drawer_button {
     -fx-pref-height: 32;
-    -fx-alignment: left;
+    -fx-alignment: center-left;
     -fx-pref-width: -fx-drawer-width;
     -fx-background-color: "transparent";
     -fx-background-radius: 0;

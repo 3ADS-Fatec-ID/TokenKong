@@ -17,7 +17,6 @@
     -fx-background-color:"transparent";
     -fx-background-image:url("../assets/icons/menu.png");
     -fx-background-position: center;
-    -fx-background-size: -fx-drawer-button;
     -fx-background-repeat: no-repeat;
     -fx-cursor:"hand";
 }

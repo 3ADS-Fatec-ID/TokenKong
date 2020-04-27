@@ -30,6 +30,7 @@ public class Drawer extends VBox {
     public Drawer(Node... nodes) {
         getStylesheets().add(getClass().getResource("/application/styles/Drawer.css").toExternalForm());
         getChildren().addAll(nodes);
+        setVisible(false);
 
         // create and set a button to hide and show
         this.toggler_button = new Button();

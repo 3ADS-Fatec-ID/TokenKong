@@ -12,8 +12,8 @@ public class Breadcrumb extends FlowPane{
 
     public void generateCrumbs( String [][] crumbsData ){
         for( Integer i = 0; i < crumbsData.length; i++ ){
-            
-            Image image = new Image("application/assets/icons/"+crumbsData[i][1]);
+
+            Image image = new Image("/application/assets/icons/"+crumbsData[i][1]+".png");
             
             ImageView imageView = new ImageView(image);
             imageView.setFitHeight(24);

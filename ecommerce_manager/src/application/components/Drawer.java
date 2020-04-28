@@ -1,42 +1,27 @@
 package application.components;
-
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
 
 public class Drawer extends VBox {
 
     public Button toggler_button;
-
-    public void generateButtons(String[][] buttonsData) {
-        for(Integer i = 0; i < buttonsData.length; i++){
-            Image image = new Image("application/assets/icons/"+buttonsData[i][1]);
-            ImageView imageView = new ImageView(image);
-            Button button = new Button(buttonsData[i][0], imageView);
-            button.getStyleClass().add("drawer_button");
-
-            this.getChildren().add(button);
-        }
-    }
-
-    /** creates a Drawer containing a vertical alignment of the given nodes */
+ 
     public Drawer(Node... nodes) {
+    	setId("drawer");
+    	setVisible(false);
+    	
         getStylesheets().add(getClass().getResource("/application/styles/Drawer.css").toExternalForm());
         getChildren().addAll(nodes);
-        setVisible(false);
 
         // create and set a button to hide and show
         this.toggler_button = new Button();
 
-        setId("drawer");
-    
         // apply the animations when the button is pressed.
         this.toggler_button.setOnAction(new EventHandler<ActionEvent>() {
             @Override 

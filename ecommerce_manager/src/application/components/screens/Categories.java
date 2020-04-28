@@ -5,17 +5,17 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import application.components.*;
 
-public class Products extends VBox {
+public class Categories extends VBox {
 
-    public Products( Node... nodes ){
+    public Categories( Node... nodes ){
         paddingProperty().setValue(new Insets(0, 30, 0, 30));
-        getStylesheets().add(getClass().getResource("/application/styles/Products.css").toExternalForm());
+        getStylesheets().add(getClass().getResource("/application/styles/Categories.css").toExternalForm());
         
         // create the breadcrumb fields
         String [][] crumbsData = {
             //[title, icon]
             {"Home","home-outline"},
-            {"Products","package-variant-closed"}
+            {"Categories","view-grid-outline"}
         };
         //create breadcrumb component
         Breadcrumb breadcrumb = new Breadcrumb();

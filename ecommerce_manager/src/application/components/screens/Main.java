@@ -36,9 +36,9 @@ public class Main extends Application {
 		// generate drawer buttons
 		ArrayList<DrawerButton> drawer_buttons = new ArrayList<DrawerButton>();
 		
-		drawer_buttons.add(new DrawerButton("Home", "home-outline", new Home(), this.homeScreen, content));
-		drawer_buttons.add(new DrawerButton("Products", "package-variant-closed", new Products(), this.productsScreen, content));
-		drawer_buttons.add(new DrawerButton("Categories", "view-grid-outline", new Categories(), this.categoriesScreen, content));
+		drawer_buttons.add( new DrawerButton("Home", "home-outline", new Home(), this.homeScreen, content) );
+		drawer_buttons.add( new DrawerButton("Products", "package-variant-closed", new Products(), this.productsScreen, content) );
+		drawer_buttons.add( new DrawerButton("Categories", "view-grid-outline", new Categories(), this.categoriesScreen, content) );
 
 		drawer.getChildren().addAll(drawer_buttons);
 

@@ -1,0 +1,59 @@
+.root{
+	-fx-principal-color: #6ee2cb;
+	-fx-second-color: #384b63;
+}
+#screen{
+	-fx-background-color: transparent;
+}
+.title{
+	-fx-padding: 0 0 2 0;
+	-fx-border-style: none none solid none;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: -fx-principal-color;
+}
+#screen-left{
+	-fx-background-radius: 5 0 0 5;
+	-fx-background-color: #6ee2cb;
+}
+#screen-right{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 30, 0, -10, 0);
+	-fx-background-radius: 0 5 5 0;
+	-fx-background-color: linear-gradient(to bottom right, #384b63, #17212f);
+}
+
+.text-field{
+	-fx-background-color: transparent;
+	-fx-background-radius: 0;
+	-fx-border-style: none none solid none;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #ffffff22;
+    -fx-text-fill: #fff;
+}
+
+.check-box .box {
+	-fx-background-color: transparent;
+	-fx-border-color:#ffffff80;
+	-fx-pref-height:12;
+	-fx-pref-width:12;
+	-fx-border-radius:2px;
+	-fx-cursor: hand;
+}
+
+.check-box:selected .mark {
+	-fx-background-color: -fx-second-color;
+	-fx-translate-y:-2;
+}
+
+.check-box:selected .box {
+	-fx-border-color: -fx-principal-color;
+	-fx-background-color: -fx-principal-color;
+}
+
+.submit_button{
+	-fx-background-color: -fx-principal-color;
+	-fx-pref-height: 26;
+	-fx-background-radius: 13;
+	-fx-text-fill: #fff;
+	-fx-cursor: hand;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.6), 20, 0, 0, 3);
+}

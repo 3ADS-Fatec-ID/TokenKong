@@ -38,14 +38,12 @@ public class Main extends Application {
 	            
 			Scene scene = new Scene(root);
 			scene.setFill(Color.TRANSPARENT);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			stage.setScene(scene);
 			
 			DropShadow shadow = new DropShadow(15, new Color(0, 0 ,0 , 0.3));
 			shadow.setOffsetY(5);
 			stage.getScene().getRoot().setEffect(shadow);
 			stage.initStyle(StageStyle.TRANSPARENT);
-			
 			stage.show();
 		} catch(Exception e) {
 			e.printStackTrace();

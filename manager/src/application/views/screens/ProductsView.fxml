@@ -1,6 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-
-<VBox minHeight="300.0" minWidth="400.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" />
+<VBox minHeight="300.0" minWidth="400.0" style="-fx-background-color: #fff;" stylesheets="@../stylesheets/Products.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProductsController">
+   <children>
+      <HBox alignment="CENTER_LEFT" prefHeight="36.0">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <children>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/icons/dark/home-outline.png" />
+               </image>
+            </ImageView>
+            <Label text="Home / ">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Label>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/icons/dark/package-variant-closed.png" />
+               </image>
+            </ImageView>
+            <Label text="Product " />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER_LEFT" prefHeight="32.0">
+         <children>
+            <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../assets/icons/dark/package-variant-closed.png" />
+               </image>
+            </ImageView>
+            <Label text="Products">
+               <font>
+                  <Font name="Poppins Regular" size="16.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="4.0" />
+               </HBox.margin>
+            </Label>
+            <Region style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+            <Button graphicTextGap="0.0" minHeight="28.0" minWidth="28.0" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0" stylesheets="@../stylesheets/button.css">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/icons/light/plus.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <HBox.margin>
+                  <Insets left="4.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+            <ScrollPane fx:id="scroller" hbarPolicy="NEVER" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
+               <content>
+                  <FlowPane fx:id="products_grid" hgap="16.0" prefWrapLength="0.0" vgap="16.0">
+                     <children>
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                        <Pane prefHeight="120.0" prefWidth="100.0" style="-fx-background-color: #f00;" />
+                     </children>
+                  </FlowPane>
+               </content>
+            </ScrollPane>
+         </children>
+         <padding>
+            <Insets top="16.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

@@ -18,10 +18,10 @@ import javafx.util.Duration;
 
 public class DrawerController implements Initializable{
 	
-	public boolean oppened = true;
+	public boolean oppened = false;
 	FxmlLoader pageLoader = new FxmlLoader();
-	
-	@FXML public Button toggle_drawer;	
+		
+	@FXML public Button toggle_drawer;
 	
 	@FXML public Button home_button;
 	@FXML public Button categories_button;

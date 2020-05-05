@@ -16,22 +16,31 @@
          <children>
             <HBox VBox.vgrow="ALWAYS">
                <children>
-                  <VBox id="drawer" fx:id="pseudoDrawer" HBox.hgrow="NEVER" />
+                  <VBox fx:id="pseudoDrawer" prefWidth="40.0" HBox.hgrow="NEVER" />
                   <HBox id="content" fx:id="content" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>
-         <padding>
-            <Insets top="36.0" />
-         </padding>
       </VBox>
-      <VBox id="drawer" fx:id="drawer" maxWidth="160.0" prefWidth="160.0">
+      <VBox id="drawer" fx:id="drawer" maxWidth="40.0" prefWidth="40.0">
          <children>
             <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                <content>
-                  <VBox alignment="TOP_RIGHT" prefWidth="180.0">
+                  <VBox alignment="TOP_RIGHT" prefWidth="160.0">
                      <children>
-                        <Button fx:id="home_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showHomePage" prefHeight="24.0" prefWidth="180.0" styleClass="drawer_button" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
+                        <Button fx:id="toggle_drawer2" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#toggleDrawer" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/icons/light/menu.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <font>
+                              <Font name="Poppins Medium" size="16.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="home_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showHomePage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -43,7 +52,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="categories_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showCategoriesPage" prefHeight="24.0" prefWidth="180.0" styleClass="drawer_button" text="Categories" textFill="WHITE">
+                        <Button fx:id="categories_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showCategoriesPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Categories" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -55,7 +64,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="products_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProductsPage" prefHeight="24.0" prefWidth="180.0" styleClass="drawer_button" text="Products" textFill="WHITE">
+                        <Button fx:id="products_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProductsPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Products" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -67,7 +76,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="providers_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProvidersPage" prefHeight="24.0" prefWidth="180.0" styleClass="drawer_button" text="Providers" textFill="WHITE">
+                        <Button fx:id="providers_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProvidersPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Providers" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -79,7 +88,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="logout_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#logout" prefHeight="24.0" prefWidth="180.0" styleClass="drawer_button" text="Logout" textFill="WHITE">
+                        <Button fx:id="logout_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#logout" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Logout" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -97,25 +106,8 @@
             </ScrollPane>
          </children>
          <StackPane.margin>
-            <Insets top="36.0" />
+            <Insets />
          </StackPane.margin>
-      </VBox>
-      <VBox maxHeight="36.0" prefHeight="36.0">
-         <children>
-            <HBox id="header" alignment="CENTER_LEFT" prefHeight="36.0">
-               <children>
-                  <Button fx:id="toggle_drawer" mnemonicParsing="false" onAction="#toggleDrawer" prefHeight="24.0" prefWidth="24.0" styleClass="drawer_toggler">
-                     <graphic>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../assets/icons/dark/menu.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </HBox>
-         </children>
       </VBox>
    </children>
 </StackPane>

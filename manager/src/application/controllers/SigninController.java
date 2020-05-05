@@ -17,7 +17,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 public class SigninController implements Initializable{
 	
@@ -35,35 +34,40 @@ public class SigninController implements Initializable{
 	}
 	
 	@FXML public void signin(ActionEvent event) {
-		
+		this.openApp();
+		/*
 		String userName = this.userName_textField.getText();
 		String password = this.password_passwordField.getText();
 		User user = new User(userName, password);
 		
 		if(user.isAuthenticated()) {
 			user = null;
-			
-			try {
-				Stage signin = (Stage) signin_button.getScene().getWindow();
-				
-				//open app window as a new stage
-				StackPane drawer = FXMLLoader.load(getClass().getResource("/application/views/components/DrawerComponent.fxml"));
-				Scene scene = new Scene(drawer);
-				Stage app = new Stage();
-				app.setScene(scene);
-				app.show();
-				
-				//close signin stage/window
-				signin.close();
-				
-			}catch(Exception e) {
-				System.out.println(e);
-			}
+			this.openApp();
 		}else {
 			user = null;
 			System.out.println("Not authenticated!");
 		}
-		
+		*/
+	}
+	
+	public void openApp() {
+		try {
+			
+			Stage signin = (Stage) signin_button.getScene().getWindow();
+			
+			//open app window as a new stage
+			StackPane drawer = FXMLLoader.load(getClass().getResource("/application/views/components/DrawerComponent.fxml"));
+			Scene scene = new Scene(drawer);
+			Stage app = new Stage();
+			app.setScene(scene);
+			app.show();
+			
+			//close signin stage/window
+			signin.close();
+			
+		}catch(Exception e) {
+			System.out.println(e);
+		}
 	}
 	
 	@FXML public void closeApplication(MouseEvent event) {

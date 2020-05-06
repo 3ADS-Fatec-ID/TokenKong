@@ -70,11 +70,12 @@ public class DrawerController implements Initializable{
 	@FXML public void toggleDrawer(ActionEvent event) {
 
         final double startWidth = 160;
+        final double minDrawerWidth = 45;
         
         final Animation closeDrawer = new Transition() {
             { setCycleDuration(Duration.millis(250)); }
             protected void interpolate(double frac) {
-                final double curWidth = ((startWidth - 40) * (1.0 - frac)) + 40;
+                final double curWidth = ((startWidth - minDrawerWidth) * (1.0 - frac)) + minDrawerWidth;
                 pseudoDrawer.setPrefWidth(curWidth);
                 drawer.setMaxWidth(curWidth);
             }
@@ -83,7 +84,7 @@ public class DrawerController implements Initializable{
         final Animation openDrawer = new Transition() {
             { setCycleDuration(Duration.millis(250)); }
             protected void interpolate(double frac) {
-                final double curWidth = ((startWidth - 40) * frac) + 40;
+                final double curWidth = ((startWidth - minDrawerWidth) * frac) + minDrawerWidth;
                 pseudoDrawer.setPrefWidth(curWidth);
                 drawer.setMaxWidth(curWidth);
             }

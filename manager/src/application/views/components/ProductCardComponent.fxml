@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="200.0" prefWidth="140.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane fx:id="card" prefHeight="200.0" prefWidth="140.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
@@ -26,7 +27,7 @@
                   <Font name="Poppins Regular" size="10.0" />
                </font>
             </Label>
-            <Label fx:id="productPrice" layoutX="58.0" layoutY="153.0" prefHeight="17.0" prefWidth="52.0" text="R$ 00,00" textAlignment="CENTER">
+            <Label fx:id="productPrice" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="10.0" layoutY="153.0" prefHeight="17.0" prefWidth="100.0" text="R$ 00,00" textAlignment="RIGHT" wrapText="true">
                <font>
                   <Font name="Poppins Regular" size="12.0" />
                </font>
@@ -35,6 +36,9 @@
          <effect>
             <DropShadow blurType="TWO_PASS_BOX" color="#00000034" />
          </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Pane>
    </children>
 </StackPane>

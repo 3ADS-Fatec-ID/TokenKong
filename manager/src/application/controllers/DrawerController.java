@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -35,21 +36,48 @@ public class DrawerController implements Initializable{
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
+		this.changePage("HomeView");
 	}
 	
 	@FXML public void showHomePage(ActionEvent event) {
-		this.changePage("HomeView");
+		if(!content.getChildren().isEmpty()) {
+			Node page = content.getChildren().get(0);
+			if(!page.getId().toString().equals("home")) {
+				this.changePage("HomeView");
+			}
+		}else {
+			this.changePage("HomeView");
+		}
 	}
 	@FXML public void showCategoriesPage(ActionEvent event) {
-		this.changePage("CategoriesView");
+		if(!content.getChildren().isEmpty()) {
+			Node page = content.getChildren().get(0);
+			if(!page.getId().toString().equals("categories")) {
+				this.changePage("CategoriesView");
+			}
+		}else {
+			this.changePage("CategoriesView");
+		}
 	}
 	@FXML public void showProductsPage(ActionEvent event) {
-		this.changePage("ProductsView");
+		if(!content.getChildren().isEmpty()) {
+			Node page = content.getChildren().get(0);;
+			if(!page.getId().toString().equals("products")) {
+				this.changePage("ProductsView");
+			}
+		}else {
+			this.changePage("ProductsView");
+		}
 	}
 	@FXML public void showProvidersPage(ActionEvent event) {
-		this.changePage("ProvidersView");
+		if(!content.getChildren().isEmpty()) {
+			Node page = content.getChildren().get(0);;
+			if(!page.getId().toString().equals("providers")) {
+				this.changePage("ProvidersView");
+			}
+		}else {
+			this.changePage("ProvidersView");
+		}
 	}
 	
 	public void changePage(String pageName) {

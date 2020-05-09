@@ -3,11 +3,11 @@ package application.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import application.models.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -15,23 +15,18 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class SigninController implements Initializable{
 	
 	@FXML public ImageView close_button;
-	
 	@FXML public TextField userName_textField;
 	@FXML public PasswordField password_passwordField;
 	@FXML public CheckBox rememberMe_checkBox;
 	@FXML public Button signin_button;
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void initialize(URL location, ResourceBundle resources) {}
 	
 	@FXML public void signin(ActionEvent event) {
 		this.openApp();
@@ -53,20 +48,23 @@ public class SigninController implements Initializable{
 	public void openApp() {
 		try {
 			
-			Stage signin = (Stage) signin_button.getScene().getWindow();
+			Stage rootStage = (Stage) signin_button.getScene().getWindow();
 			
 			//open app window as a new stage
-			StackPane drawer = FXMLLoader.load(getClass().getResource("/application/views/components/DrawerComponent.fxml"));
-			Scene scene = new Scene(drawer);
-			Stage app = new Stage();
-			app.setScene(scene);
-			app.show();
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/DrawerComponent.fxml"));
+			DrawerController drawerController = new DrawerController();
+			fxmlLoader.setController(drawerController);
+			Parent drawer = fxmlLoader.load();
 			
-			//close signin stage/window
-			signin.close();
+			Scene scene = new Scene(drawer);
+			
+			rootStage.close();
+			rootStage = new Stage();
+			rootStage.setScene(scene);
+			rootStage.show();
 			
 		}catch(Exception e) {
-			System.out.println(e);
+			System.out.println(e.getMessage());
 		}
 	}
 	

@@ -1,5 +1,6 @@
 package application;
 
+import application.controllers.SigninController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,10 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/views/screens/SigninView.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/screens/SigninView.fxml"));
+			SigninController signinController = new SigninController();
+			fxmlLoader.setController(signinController);
+			Parent root = fxmlLoader.load();
 			
 			root.setOnMousePressed(new EventHandler<MouseEvent>() {
 	            @Override
@@ -53,4 +57,5 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }

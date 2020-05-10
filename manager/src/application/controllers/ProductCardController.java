@@ -1,11 +1,10 @@
 package application.controllers;
 
+import application.Main;
 import application.models.Product;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,7 +15,7 @@ import javafx.scene.layout.VBox;
 
 public class ProductCardController {
 	
-	private Product product;
+	private Product product = new Product();
 	
 	@FXML
 	public Pane card;
@@ -37,18 +36,12 @@ public class ProductCardController {
 		card.setOnMouseClicked(new EventHandler<MouseEvent>() { 
 			@Override 
 			public void handle(MouseEvent event) {
-				Node source = (Node)event.getSource();
-				Parent parent = source.getParent();
-				Parent parent2 = parent.getParent();
-				Parent parent3 = parent2.getParent();
-				Parent parent4 = parent3.getParent();
-				Parent parent5 = parent4.getParent();
-				Parent parent6 = parent5.getParent();
-				HBox pagesParent = (HBox) parent6.getParent();
+				
+				HBox pagesParent = (HBox)Main.getPagesParent(event);
+				
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/screens/ProductFormView.fxml"));
 					ProductFormController productFormController = new ProductFormController();
-					productFormController.setPagesParent(pagesParent);
 					productFormController.setProduct(product);
 					fxmlLoader.setController(productFormController);
 					VBox page = fxmlLoader.load();

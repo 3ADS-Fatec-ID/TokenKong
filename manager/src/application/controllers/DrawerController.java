@@ -99,22 +99,21 @@ public class DrawerController implements Initializable{
 
         final double startWidth = 160;
         final double minDrawerWidth = 45;
+        final double minPseudoDrawerWidth = 40;
         
         final Animation closeDrawer = new Transition() {
             { setCycleDuration(Duration.millis(250)); }
             protected void interpolate(double frac) {
-                final double curWidth = ((startWidth - minDrawerWidth) * (1.0 - frac)) + minDrawerWidth;
-                pseudoDrawer.setPrefWidth(curWidth);
-                drawer.setMaxWidth(curWidth);
+                pseudoDrawer.setPrefWidth(((startWidth - minPseudoDrawerWidth ) * (1.0 - frac)) + minPseudoDrawerWidth);
+                drawer.setMaxWidth(((startWidth - minDrawerWidth) * (1.0 - frac)) + minDrawerWidth);
             }
         };
         
         final Animation openDrawer = new Transition() {
             { setCycleDuration(Duration.millis(250)); }
             protected void interpolate(double frac) {
-                final double curWidth = ((startWidth - minDrawerWidth) * frac) + minDrawerWidth;
-                pseudoDrawer.setPrefWidth(curWidth);
-                drawer.setMaxWidth(curWidth);
+                pseudoDrawer.setPrefWidth(((startWidth - minPseudoDrawerWidth) * frac) + (minPseudoDrawerWidth - ((5*(frac * 100)) / 100)));
+                drawer.setMaxWidth(((startWidth - minDrawerWidth) * frac) + minDrawerWidth);
             }
         };
         

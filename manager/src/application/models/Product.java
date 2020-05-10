@@ -11,6 +11,10 @@ public class Product {
 	private String name = null;
 	private ArrayList<Image> images = new ArrayList<Image>();
 	
+	public Product(){
+		this.images.add(0, new Image("/application/assets/images/products/no_image.png"));
+	}
+	
 	public Integer getId() {
 		return id;
 	}

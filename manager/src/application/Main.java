@@ -2,10 +2,12 @@ package application;
 
 import application.controllers.SigninController;
 import javafx.application.Application;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -56,6 +58,16 @@ public class Main extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
+	}
+	
+	public static Parent getPagesParent ( Event event ) {
+		Node source = (Node)event.getSource();
+		Scene scene = source.getScene();
+		Parent parent = scene.getRoot();
+		Parent parent2 = (Parent)parent.getChildrenUnmodifiable().get(0);
+		Parent parent3 = (Parent)parent2.getChildrenUnmodifiable().get(0);
+		Parent pagesParent = (Parent)parent3.getChildrenUnmodifiable().get(1);
+		return pagesParent;
 	}
 
 }

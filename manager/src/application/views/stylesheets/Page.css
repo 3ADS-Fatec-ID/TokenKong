@@ -42,45 +42,45 @@
 	-fx-border-color: derive(#84a9ac, 70%);
 	-fx-border-width: 1 1 2 1;
 }
-.text-area .scroll-pane .scroll-bar:horizontal, .text-area .scroll-pane .scroll-bar:vertical{
+.scroll-bar:vertical{
     -fx-background-color:transparent;
     -fx-pref-width:8;
 }
-.text-area .scroll-pane .scroll-bar:horizontal .track,
-.text-area .scroll-pane .scroll-bar:vertical .track{
+.scroll-bar:horizontal{
+    -fx-background-color:transparent;
+    -fx-pref-height:8;
+}
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
     -fx-background-radius: 0;
 }
 
-.text-area .scroll-pane .scroll-bar:horizontal .thumb,
-.text-area .scroll-pane .scroll-bar:vertical .thumb {
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
     -fx-background-color: derive(#84a9ac, 70%);
     -fx-background-radius: 4;
 }
 
-.text-area .scroll-pane .scroll-bar > .increment-button > .increment-arrow,
-.text-area .scroll-pane .scroll-bar > .decrement-button > .decrement-arrow {
+.scroll-bar > .increment-button > .increment-arrow,
+.scroll-bar > .decrement-button > .decrement-arrow {
     -fx-background-color: transparent;
     -fx-shape: " ";	
 	-fx-padding:0;
 }
 
-.text-area .scroll-pane .scroll-bar > .corner {
+.scroll-bar > .corner {
 	-fx-pref-height:0;
 	-fx-shape: " ";	
 	-fx-padding:0;
     -fx-background-color: transparent;
 }
 
-.image_picker{
-	-fx-background-radius: 5;
-	-fx-border-radius: 5 5 5 5;
-	-fx-border-width: 2;
-	-fx-border-color: derive(#84a9ac, 70%);
-}
-.image_picker .button{
-	-fx-background-color:derive(#84a9ac, 70%);
-	-fx-background-radius: 5;
-	-fx-text-fill:derive(#84a9ac, -20%);
+.submit_button{
+	-fx-pref-height:24;
+	-fx-background-radius:12;
+	-fx-background-color: #84a9ac;
+	-fx-text-fill: #fff;
+	-fx-padding: 0 6 0 4;
 }

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import application.models.DB;
 import application.models.Product;
+import application.models.ProductImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
@@ -14,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.Image;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 
@@ -48,7 +48,9 @@ public class ProductsController {
 		String query = "";
 		query += "SELECT ";
 		query += "P.*, ";
-		query += "I.name as image ";
+		query += "I.name as image, ";
+		query += "I.id as image_id, ";
+		query += "PI.id as product_image_id ";
 		query += "FROM product as P ";
 		query += "LEFT JOIN product_image as PI ";
 		query += "ON PI.product_id = P.id ";
@@ -86,7 +88,11 @@ public class ProductsController {
 		
 		try {
 			
-			Image image = new Image("/application/assets/images/products/"+resultSet.getString("image"));
+			ProductImage image = new ProductImage("/application/assets/images/products/"+resultSet.getString("image"));
+			image.setProductId(resultSet.getInt("id"));
+			image.setImageId(resultSet.getInt("image_id"));
+			image.setId(resultSet.getInt("product_image_id"));
+			image.setName(resultSet.getString("image"));
 			
 			ProductCardController productCardController = new ProductCardController();
 			Product product = new Product();
@@ -94,7 +100,9 @@ public class ProductsController {
 			product.setId(resultSet.getInt("id"));
 			product.setName(resultSet.getString("name"));
 			product.setPrice(resultSet.getDouble("price"));
-			product.setCoverImage(image);
+			ArrayList<ProductImage> imageList = new ArrayList<ProductImage>();
+			imageList.add(image);
+			product.setImages(imageList);
 			productCardController.setProduct(product);
 			this.products.add(product);
 			

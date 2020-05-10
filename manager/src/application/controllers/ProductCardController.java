@@ -30,7 +30,7 @@ public class ProductCardController {
 	public void initialize() {
 		
 		this.productName.setText(this.product.getName());
-		this.productPrice.setText(String.format("R$ %.2f", this.product.getPrice()));
+		this.productPrice.setText(String.format("R$ %.2f", product.getPrice()));
 		this.productImage.setImage(this.product.getCoverImage());
 		
 		card.setOnMouseClicked(new EventHandler<MouseEvent>() { 

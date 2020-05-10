@@ -2,7 +2,7 @@
     -fx-background-color: transparent;
 }
 
-.scroll-bar:horizontal, .scroll-bar:vertical{
+/*.scroll-bar:horizontal, .scroll-bar:vertical{
     -fx-background-color:transparent;
     -fx-pref-width:10;
 }
@@ -37,4 +37,4 @@ scroll-bar > .corner {
 	-fx-shape: " ";	
 	-fx-padding:0;
     -fx-background-color: transparent;
-}
+}*/

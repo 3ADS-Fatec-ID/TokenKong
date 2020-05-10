@@ -9,10 +9,11 @@ public class Product {
 	private Integer id = null;
 	private Double price = null;
 	private String name = null;
-	private ArrayList<Image> images = new ArrayList<Image>();
+	private String description = null;
+	private ArrayList<ProductImage> images = new ArrayList<ProductImage>();
 	
 	public Product(){
-		this.images.add(0, new Image("/application/assets/images/products/no_image.png"));
+		this.images.add(0, new ProductImage("/application/assets/images/products/no_image.png"));
 	}
 	
 	public Integer getId() {
@@ -33,16 +34,22 @@ public class Product {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<Image> getImages() {
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public ArrayList<ProductImage> getImages() {
 		return images;
 	}
-	public void setImages(ArrayList<Image> images) {
+	public void setImages(ArrayList<ProductImage> images) {
 		this.images = images;
 	}
 	public Image getCoverImage() {
 		return images.get(0);
 	}
-	public void setCoverImage(Image image) {
+	public void setCoverImage(ProductImage image) {
 		this.images.add(0, image);
 	}
 }

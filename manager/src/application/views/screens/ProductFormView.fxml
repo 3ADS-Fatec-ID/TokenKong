@@ -78,7 +78,7 @@
                         <Font name="Poppins Regular" size="12.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/icons/light/pencil-outline.png" />
                      </image>
@@ -111,7 +111,7 @@
                <children>
                   <HBox alignment="CENTER" style="-fx-background-radius: 0 0 8 8; -fx-background-color: #84a9ac;" HBox.hgrow="ALWAYS">
                      <children>
-                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../assets/icons/light/pencil-outline.png" />
                            </image>
@@ -137,22 +137,22 @@
             <Insets />
          </VBox.margin>
       </HBox>
-      <HBox VBox.vgrow="ALWAYS">
+      <HBox fx:id="page_content" VBox.vgrow="ALWAYS">
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
-                  <HBox prefHeight="61.0" prefWidth="109.0">
+                  <HBox>
                      <children>
-                        <VBox HBox.hgrow="ALWAYS">
+                        <VBox maxHeight="46.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Name*" textFill="#727272">
                                  <font>
                                     <Font name="Poppins Regular" size="12.0" />
                                  </font>
                               </Label>
-                              <TextField maxWidth="1.7976931348623157E308">
+                              <TextField fx:id="product_name" maxWidth="1.7976931348623157E308">
                                  <VBox.margin>
-                                    <Insets bottom="16.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <font>
                                     <Font name="Poppins Regular" size="12.0" />
@@ -160,45 +160,37 @@
                               </TextField>
                            </children>
                         </VBox>
-                        <VBox prefWidth="100.0">
+                        <VBox maxHeight="46.0">
                            <children>
                               <Label text="Quantity*" textFill="#727272" />
-                              <TextField>
-                                 <VBox.margin>
-                                    <Insets bottom="16.0" />
-                                 </VBox.margin>
-                              </TextField>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" minWidth="28.0" prefHeight="28.0" style="-fx-background-color: #84a8ab4d; -fx-background-radius: 5 0 0 5;" text="R$" textAlignment="CENTER" textFill="#84a9ac">
+                                       <font>
+                                          <Font name="Poppins Medium" size="12.0" />
+                                       </font>
+                                       <padding>
+                                          <Insets left="8.0" right="8.0" />
+                                       </padding>
+                                    </Label>
+                                    <TextField fx:id="product_price" minWidth="80.0" style="-fx-background-radius: 0 5 5 0; -fx-border-radius: 0 5 5 0; -fx-border-width: 1 1 2 0;" />
+                                 </children>
+                              </HBox>
                            </children>
                            <padding>
                               <Insets left="16.0" />
                            </padding>
                         </VBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefWidth="200.0" styleClass="image_picker">
-                     <children>
-                        <Button fx:id="chooseImage_button" mnemonicParsing="false" text="Choose">
-                           <font>
-                              <Font name="Poppins Regular" size="12.0" />
-                           </font>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </Button>
-                        <Label text="Image" textFill="#727272">
-                           <HBox.margin>
-                              <Insets left="8.0" />
-                           </HBox.margin>
-                        </Label>
-                     </children>
-                     <padding>
-                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-                     </padding>
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </HBox>
-                  <ImageView fx:id="product_image" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                  <VBox prefWidth="200.0" styleClass="image_picker">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
                   <VBox prefHeight="89.0" prefWidth="109.0">
                      <children>
                         <Label text="Description" textFill="#727272">
@@ -206,13 +198,32 @@
                               <Font name="Poppins Regular" size="12.0" />
                            </font>
                         </Label>
-                        <TextArea maxWidth="1.7976931348623157E308" prefHeight="100.0" wrapText="true">
+                        <TextArea fx:id="product_description" maxWidth="1.7976931348623157E308" prefHeight="100.0" wrapText="true">
                            <VBox.margin>
                               <Insets bottom="16.0" />
                            </VBox.margin>
                         </TextArea>
                      </children>
                   </VBox>
+                  <HBox alignment="CENTER_RIGHT">
+                     <children>
+                        <Button mnemonicParsing="false" styleClass="submit_button" text="Save">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/icons/light/pencil-outline.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </HBox>
                </children>
                <padding>
                   <Insets right="4.0" />

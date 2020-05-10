@@ -1,0 +1,56 @@
+.image_picker .picker_header{
+	-fx-background-color: derive(#84a9ac, 70%);
+}
+.image_picker .image_queue{
+   -fx-background-color:#fff;
+   -fx-background-radius: 0 0 5 5;
+}
+
+.image_queue .scroll-bar:vertical{
+    -fx-background-color:transparent;
+    -fx-pref-width:8;
+}
+
+.image_queue .scroll-bar:horizontal{
+    -fx-background-color:transparent;
+    -fx-pref-height:8;
+}
+
+.image_queue .scroll-bar:horizontal .track,
+.image_queue .scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0;
+}
+
+.image_queue .scroll-bar:horizontal .thumb,
+.image_queue .scroll-bar:vertical .thumb {
+    -fx-background-color: derive(#84a9ac, 70%);
+    -fx-background-radius: 4;
+}
+
+.image_queue .scroll-bar > .increment-button > .increment-arrow,
+.image_queue .scroll-bar > .decrement-button > .decrement-arrow {
+    -fx-background-color: transparent;
+    -fx-shape: " ";	
+	-fx-padding:0;
+}
+
+.image_queue .scroll-bar > .corner {
+	-fx-pref-height:0;
+	-fx-shape: " ";	
+	-fx-padding:0;
+    -fx-background-color: transparent;
+}
+
+.image_picker{
+	-fx-background-radius: 5;
+	-fx-border-radius: 5 5 5 5;
+	-fx-border-width: 2;
+	-fx-border-color: derive(#84a9ac, 70%);
+}
+.image_picker .button{
+	-fx-background-color:#84a9ac;
+	-fx-background-radius: 5;
+	-fx-text-fill:#fff;
+}

@@ -76,11 +76,17 @@
 	-fx-padding:0;
     -fx-background-color: transparent;
 }
-
-.submit_button{
-	-fx-pref-height:24;
-	-fx-background-radius:12;
-	-fx-background-color: #84a9ac;
+.cancel_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
+	-fx-background-color: #f66;
 	-fx-text-fill: #fff;
-	-fx-padding: 0 6 0 4;
+	-fx-padding: 0 10 0 8;
+}
+.submit_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
+	-fx-background-color: #7c5;
+	-fx-text-fill: #fff;
+	-fx-padding: 0 10 0 8;
 }

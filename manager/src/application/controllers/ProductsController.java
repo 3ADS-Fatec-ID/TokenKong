@@ -100,6 +100,7 @@ public class ProductsController {
 			product.setId(resultSet.getInt("id"));
 			product.setName(resultSet.getString("name"));
 			product.setPrice(resultSet.getDouble("price"));
+			product.setQuantity(resultSet.getInt("quantity"));
 			ArrayList<ProductImage> imageList = new ArrayList<ProductImage>();
 			imageList.add(image);
 			product.setImages(imageList);

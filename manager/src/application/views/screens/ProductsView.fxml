@@ -74,17 +74,7 @@
                         <Image url="@../../assets/icons/light/package-variant-closed.png" />
                      </image>
                   </ImageView>
-                  <Label text="Products / " textFill="WHITE">
-                     <font>
-                        <Font name="Poppins Regular" size="12.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../assets/icons/light/pencil-outline.png" />
-                     </image>
-                  </ImageView>
-                  <Label text="Edit" textFill="WHITE">
+                  <Label text="Products" textFill="WHITE">
                      <font>
                         <Font name="Poppins Regular" size="12.0" />
                      </font>
@@ -111,10 +101,10 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../assets/icons/light/pencil-outline.png" />
+                              <Image url="@../../assets/icons/light/package-variant-closed.png" />
                            </image>
                         </ImageView>
-                        <Label text="Product Edit" textFill="WHITE">
+                        <Label text="Products" textFill="WHITE">
                            <font>
                               <Font name="Poppins Regular" size="18.0" />
                            </font>

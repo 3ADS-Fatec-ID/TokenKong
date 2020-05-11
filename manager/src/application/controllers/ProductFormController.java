@@ -32,20 +32,25 @@ public class ProductFormController{
 	
 	@FXML public HBox page_content;
 	@FXML public Button go_back;
+	@FXML public Button cancel_button;
 	@FXML public TextField product_name;
 	@FXML public TextField product_price;
+	@FXML public TextField product_quantity;
 	@FXML public TextArea product_description;
 	
 	public void initialize() {
 		this.setInitialFormValues();
 		this.generateImagePicker();
-		this.setGoBackButtonAction();
+		
+		this.go_back.setOnMouseClicked(this.goBack());
+		this.cancel_button.setOnMouseClicked(this.goBack());
 	}
 	
 	private void setInitialFormValues() {
 		product_name.setText(product.getName());
-		product_price.setText(String.format("R$ %.2f", product.getPrice()));
+		product_price.setText(String.format("%.2f", product.getPrice()));
 		product_description.setText(product.getDescription());
+		product_quantity.setText(String.format("%d", product.getQuantity()));
 	}
 	
 	private void loadProduct() {
@@ -96,11 +101,10 @@ public class ProductFormController{
 		}
 	}
 	
-	private void setGoBackButtonAction() {
-		this.go_back.setOnMouseClicked(new EventHandler<MouseEvent>() { 
+	private EventHandler<MouseEvent> goBack() {
+		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
 			@Override 
 			public void handle(MouseEvent event) {
-				
 				HBox pagesParent = (HBox)Main.getPagesParent(event);
 				
 				try {
@@ -116,7 +120,9 @@ public class ProductFormController{
 					System.out.println(e.getMessage());
 				}
 			}
-		});
+		};
+		
+		return eventHandler;
 	}
 	
 	private void generateImagePicker() {
@@ -129,7 +135,7 @@ public class ProductFormController{
 			VBox imagePicker = fxmlLoader.load();
 			HBox.setHgrow(imagePicker, Priority.ALWAYS);
 			VBox.setMargin(imagePicker, new Insets(0, 0, 10, 0));
-			((VBox) page_content.getChildren().get(0)).getChildren().set(1,imagePicker);
+			((VBox) page_content.getChildren().get(0)).getChildren().set(2,imagePicker);
 			
 			this.loadProduct();
 			

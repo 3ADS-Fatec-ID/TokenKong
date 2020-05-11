@@ -141,31 +141,48 @@
          <children>
             <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                <children>
+                  <VBox maxHeight="46.0">
+                     <children>
+                        <Label text="Name*" textFill="#727272">
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="product_name" maxWidth="1.7976931348623157E308">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <font>
+                              <Font name="Poppins Regular" size="12.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </VBox>
                   <HBox>
                      <children>
-                        <VBox maxHeight="46.0" HBox.hgrow="ALWAYS">
-                           <children>
-                              <Label text="Name*" textFill="#727272">
-                                 <font>
-                                    <Font name="Poppins Regular" size="12.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="product_name" maxWidth="1.7976931348623157E308">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="Poppins Regular" size="12.0" />
-                                 </font>
-                              </TextField>
-                           </children>
-                        </VBox>
-                        <VBox maxHeight="46.0">
+                        <VBox maxHeight="46.0" maxWidth="130.0">
                            <children>
                               <Label text="Quantity*" textFill="#727272" />
-                              <HBox prefHeight="100.0" prefWidth="200.0">
+                              <HBox prefHeight="100.0" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="CENTER" contentDisplay="CENTER" minWidth="28.0" prefHeight="28.0" style="-fx-background-color: #84a8ab4d; -fx-background-radius: 5 0 0 5;" text="R$" textAlignment="CENTER" textFill="#84a9ac">
+                                    <TextField fx:id="product_quantity" maxWidth="62.0">
+                                       <font>
+                                          <Font name="Poppins Regular" size="12.0" />
+                                       </font>
+                                    </TextField>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                        <VBox maxHeight="46.0" maxWidth="130.0">
+                           <children>
+                              <Label text="Price*" textFill="#727272" />
+                              <HBox prefHeight="100.0" VBox.vgrow="ALWAYS">
+                                 <children>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" minHeight="28.0" minWidth="32.0" prefHeight="28.0" style="-fx-background-color: #84a8ab4d; -fx-background-radius: 5 0 0 5;" text="R$" textAlignment="CENTER" textFill="#727272">
                                        <font>
                                           <Font name="Poppins Medium" size="12.0" />
                                        </font>
@@ -173,7 +190,7 @@
                                           <Insets left="8.0" right="8.0" />
                                        </padding>
                                     </Label>
-                                    <TextField fx:id="product_price" minWidth="80.0" style="-fx-background-radius: 0 5 5 0; -fx-border-radius: 0 5 5 0; -fx-border-width: 1 1 2 0;" />
+                                    <TextField fx:id="product_price" alignment="CENTER_RIGHT" minWidth="82.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 0 5 5 0; -fx-border-radius: 0 5 5 0; -fx-border-width: 1 1 2 0;" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -207,14 +224,32 @@
                   </VBox>
                   <HBox alignment="CENTER_RIGHT">
                      <children>
-                        <Button mnemonicParsing="false" styleClass="submit_button" text="Save">
+                        <Button fx:id="cancel_button" mnemonicParsing="false" styleClass="cancel_button" text="Cancel">
                            <font>
-                              <Font name="Poppins Regular" size="12.0" />
+                              <Font name="Poppins Regular" size="16.0" />
                            </font>
                            <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
-                                    <Image url="@../../assets/icons/light/pencil-outline.png" />
+                                    <Image url="@../../assets/icons/light/close-thick.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                           <HBox.margin>
+                              <Insets right="10.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" styleClass="submit_button" text="Save">
+                           <font>
+                              <Font name="Poppins Regular" size="16.0" />
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/icons/light/check-bold.png" />
                                  </image>
                               </ImageView>
                            </graphic>

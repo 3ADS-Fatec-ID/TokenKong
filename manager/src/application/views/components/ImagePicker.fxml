@@ -30,7 +30,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Label fx:id="images_names" text="Image Name" textFill="#84a9ac">
+            <Label fx:id="images_names" text="Image Name" textFill="#727272">
                <HBox.margin>
                   <Insets left="8.0" />
                </HBox.margin>

@@ -8,6 +8,7 @@ public class Product {
 	
 	private Integer id = null;
 	private Double price = null;
+	private Integer quantity = null;
 	private String name = null;
 	private String description = null;
 	private ArrayList<ProductImage> images = new ArrayList<ProductImage>();
@@ -39,6 +40,12 @@ public class Product {
 	}
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	public Integer getQuantity() {
+		return quantity;
+	}
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	public ArrayList<ProductImage> getImages() {
 		return images;

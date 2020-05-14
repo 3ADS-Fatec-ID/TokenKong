@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -14,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="products" minHeight="300.0" minWidth="400.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProductsController">
+<VBox id="products" style="-fx-background-color: #fff;" stylesheets="@stylesheets/Page.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProductsController">
    <children>
-      <HBox id="page_header" prefHeight="36.0">
+      <HBox id="page_header" minHeight="36.0" prefHeight="36.0">
          <children>
             <Button id="back_button" fx:id="go_back" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
                <HBox.margin>
@@ -92,7 +91,7 @@
             <Insets left="16.0" right="16.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="32.0" style="-fx-background-color: #84a9ac; -fx-background-radius: 0 0 5 5;">
+      <HBox alignment="CENTER_LEFT" minHeight="32.0" prefHeight="32.0" style="-fx-background-color: #84a9ac; -fx-background-radius: 0 0 5 5;">
          <children>
             <Pane prefWidth="30.0" style="-fx-background-radius: 0 8 0 0; -fx-background-color: #fff;" />
             <HBox alignment="CENTER_LEFT" prefWidth="150.0" style="-fx-background-color: #fff;">
@@ -122,21 +121,28 @@
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 8 0 0 0; -fx-background-color: #fff;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-         <children>
-            <ScrollPane fx:id="scroller" hbarPolicy="NEVER" style="-fx-border-color: #eee; -fx-border-width: 1 0 0 0;" vbarPolicy="ALWAYS" HBox.hgrow="ALWAYS">
-               <content>
-                  <FlowPane fx:id="products_grid" prefWrapLength="0.0" />
-               </content>
-            </ScrollPane>
-         </children>
+      <ScrollPane fx:id="scroller" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+         <content>
+            <VBox fx:id="scroller_content">
+               <children>
+                  <HBox VBox.vgrow="ALWAYS">
+                     <padding>
+                        <Insets bottom="30.0" left="30.0" right="30.0" />
+                     </padding>
+                     <children>
+                        <FlowPane fx:id="products_grid" hgap="10.0" prefWrapLength="0.0" style="-fx-background-color: #f00;" vgap="10.0" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                        </FlowPane>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </content>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
+            <Insets top="10.0" />
          </padding>
-      </HBox>
+      </ScrollPane>
    </children>
-   <stylesheets>
-      <URL value="@../stylesheets/Products.css" />
-      <URL value="@../stylesheets/Page.css" />
-   </stylesheets>
 </VBox>

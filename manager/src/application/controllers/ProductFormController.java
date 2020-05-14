@@ -30,13 +30,20 @@ public class ProductFormController{
 	final FileChooser fileChooser = new FileChooser();
 	ImagePickerController imagePickerController = new ImagePickerController();
 	
-	@FXML public HBox page_content;
-	@FXML public Button go_back;
-	@FXML public Button cancel_button;
-	@FXML public TextField product_name;
-	@FXML public TextField product_price;
-	@FXML public TextField product_quantity;
-	@FXML public TextArea product_description;
+	@FXML 
+	public HBox page_content;
+	@FXML 
+	public Button go_back;
+	@FXML 
+	public Button cancel_button;
+	@FXML 
+	public TextField product_name;
+	@FXML 
+	public TextField product_price;
+	@FXML 
+	public TextField product_quantity;
+	@FXML 
+	public TextArea product_description;
 	
 	public void initialize() {
 		this.setInitialFormValues();

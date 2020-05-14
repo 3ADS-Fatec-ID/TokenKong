@@ -76,6 +76,11 @@
 	-fx-padding:0;
     -fx-background-color: transparent;
 }
+
+.scroll-pane{
+	-fx-background-color:transparent;
+	-fx-border-color: transparent;
+}
 .cancel_button{
 	-fx-pref-height:28;
 	-fx-background-radius:14;

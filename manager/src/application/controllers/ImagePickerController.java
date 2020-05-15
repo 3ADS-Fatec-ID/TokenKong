@@ -24,6 +24,8 @@ public class ImagePickerController {
 	private ArrayList<ProductImage> images= new ArrayList<ProductImage>();
 	final FileChooser fileChooser = new FileChooser();
 	
+	Integer [] idsToDelete = {};
+	
 	@FXML VBox image_picker;
 	@FXML ScrollPane image_queue;
 	@FXML Button chooseImage_button;
@@ -95,5 +97,9 @@ public class ImagePickerController {
 	
 	public ArrayList<ProductImage> getImages(){
 		return this.images;
+	}
+	
+	public Integer [] getIdsToDelete() {
+		return idsToDelete;
 	}
 }

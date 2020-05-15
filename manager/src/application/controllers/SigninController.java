@@ -3,7 +3,9 @@ package application.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.models.User;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -26,23 +28,31 @@ public class SigninController implements Initializable{
 	@FXML public Button signin_button;
 	
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {}
+	public void initialize(URL location, ResourceBundle resources) {
+		signin_button.setOnAction(signin());
+	}
 	
-	@FXML public void signin(ActionEvent event) {
-		this.openApp();
-		/*
-		String userName = this.userName_textField.getText();
-		String password = this.password_passwordField.getText();
-		User user = new User(userName, password);
+	public EventHandler<ActionEvent> signin() {
 		
-		if(user.isAuthenticated()) {
-			user = null;
-			this.openApp();
-		}else {
-			user = null;
-			System.out.println("Not authenticated!");
-		}
-		*/
+		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				String userName = userName_textField.getText();
+				String password = password_passwordField.getText();
+				User user = new User(userName, password);
+				
+				if(user.isAuthenticated()) {
+					user = null;
+					openApp();
+				}else {
+					user = null;
+					System.out.println("Not authenticated!");
+				}
+			}
+		};
+		
+		return eventHandler;
+		
 	}
 	
 	public void openApp() {

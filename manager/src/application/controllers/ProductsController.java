@@ -103,7 +103,7 @@ public class ProductsController {
 		
 		if(this.database.connection != null) {
 			try{				
-				PreparedStatement preparedStatement = this.database.connection.prepareStatement(query);
+				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
 				if (preparedStatement.execute()) {
 					
 					resultSet = preparedStatement.getResultSet();
@@ -119,7 +119,7 @@ public class ProductsController {
 			}catch(SQLException e) {
 				System.out.println(e.getMessage());
 			}finally {
-				this.database.disconnect();
+				database.disconnect();
 			}	
 		}
 		

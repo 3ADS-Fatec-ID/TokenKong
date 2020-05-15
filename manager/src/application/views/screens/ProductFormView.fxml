@@ -244,7 +244,7 @@
                                           <Insets right="10.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button mnemonicParsing="false" styleClass="submit_button" text="Save">
+                                    <Button fx:id="submit_button" mnemonicParsing="false" styleClass="submit_button" text="Save">
                                        <font>
                                           <Font name="Poppins Regular" size="16.0" />
                                        </font>

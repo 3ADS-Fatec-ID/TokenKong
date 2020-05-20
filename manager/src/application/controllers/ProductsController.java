@@ -140,7 +140,7 @@ public class ProductsController {
 			product.setQuantity(resultSet.getInt("quantity"));
 			
 			if(resultSet.getString("image") != null) {
-				ProductImage image = new ProductImage("/application/assets/images/products/"+resultSet.getString("image"));
+				ProductImage image = new ProductImage("application/assets/images/products/"+resultSet.getString("image"));
 				image.setProductId(resultSet.getInt("id"));
 				image.setImageId(resultSet.getInt("image_id"));
 				image.setId(resultSet.getInt("product_image_id"));

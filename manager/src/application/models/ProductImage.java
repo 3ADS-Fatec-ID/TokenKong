@@ -1,8 +1,12 @@
 package application.models;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import javax.imageio.ImageIO;
 
@@ -11,15 +15,24 @@ import javafx.scene.image.Image;
 
 public class ProductImage extends Image{
 	
-	public ProductImage(String string) {
-		super(string);
-	}
+	private DB database = new DB();
 	
+	private Integer index;
 	private Integer id;
 	private Integer imageId;
 	private Integer productId;
 	private String name;
 	
+	public ProductImage(String string) {
+		super(string);
+	}
+	
+	public Integer getIndex() {
+		return index;
+	}
+	public void setIndex(Integer index) {
+		this.index = index;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -45,20 +58,48 @@ public class ProductImage extends Image{
 		this.name = name;
 	}
 	
-	public String save() {
+	public void save() throws Exception {
+		
+		database.connect();
+		
 		String ext = this.getName().split("\\.")[1];
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		String imageName = UtilMethods.generateRandomString(6) + "_" + timestamp.getTime();
-		
-		File outputFile = new File("./../assets/images/products/"+imageName);
-	    BufferedImage bImage = SwingFXUtils.fromFXImage(this, null);
-	    
+		this.setName(imageName+"."+ext);
 		try {
-		    ImageIO.write(bImage, ext, outputFile);
-		} catch (IOException e) {
-		   throw new RuntimeException(e);
+			String path = Paths.get("").toAbsolutePath().toString();
+			String fname= path+"/src/application/assets/images/products/"+this.getName();
+			File file = new File(fname);
+			
+            if (file != null && database.connection != null) {
+                ImageIO.write(SwingFXUtils.fromFXImage(this, null), "png", file);
+            	
+    			PreparedStatement pstmtInsert = null;
+    			String queryInsert = "INSERT INTO image (name, inserted_at) values (?, NOW())";
+    			pstmtInsert = database.connection.prepareStatement(queryInsert, Statement.RETURN_GENERATED_KEYS);
+    			pstmtInsert.setString	(1, this.getName());
+    			pstmtInsert.execute();
+    			
+    			try (ResultSet generatedKeys = pstmtInsert.getGeneratedKeys()) {
+    	            if (generatedKeys.next()) {
+    	                this.setImageId((int)generatedKeys.getLong(1));
+    	            }
+    	            else {
+    	                throw new SQLException("Creating user failed, no ID obtained.");
+    	            }
+    	        }
+    			
+    			
+            }
+            
+		}catch(SQLException e) {
+			System.out.println(e.getMessage());
+			throw new Exception(e.getMessage());
+		}catch (IOException e) {
+	    	throw new Exception(e.getMessage());
+	    }finally {
+			database.disconnect();
 		}
-		return imageName + "." + ext;
 	}
 	
 }

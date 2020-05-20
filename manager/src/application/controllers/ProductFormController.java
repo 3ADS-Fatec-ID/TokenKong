@@ -107,8 +107,10 @@ public class ProductFormController{
 							this.imagePickerController.setImages(product.getImages());
 						}
 					}
-				}catch(SQLException e) {
-					System.out.println(e.getMessage());
+				}catch(SQLException e2) {
+					System.out.println(e2.getMessage());
+				}catch(Exception e1) {
+					System.out.println(e1.getMessage());
 				}finally {
 					this.database.disconnect();
 				}	
@@ -171,16 +173,16 @@ public class ProductFormController{
 				
 				pstmtUpdate.execute();
 				
-				Integer [] imagesIdsToDelete = imagePickerController.getIdsToDelete();
+				ArrayList<Integer> imagesIdsToDelete = imagePickerController.getIdsToDelete();
 				
-				if(imagesIdsToDelete.length > 0) {
+				if(imagesIdsToDelete.size() > 0) {
 					
 					//DELETE PRODUCT LINK WITH IMAGES
 					String queryRemove = "";
 					queryRemove += "DELETE FROM ";
 					queryRemove += "product_image WHERE ";
 					queryRemove += "id IN ( ";
-					for(int i = 0; i < imagesIdsToDelete.length; i++) {
+					for(int i = 0; i < imagesIdsToDelete.size(); i++) {
 						if(i > 0) {
 							queryRemove += ", ";				
 						}
@@ -190,8 +192,8 @@ public class ProductFormController{
 					
 					pstmtRemove = database.connection.prepareStatement(queryRemove);
 					
-					for(int i = 0; i < imagesIdsToDelete.length; i++) {
-						pstmtRemove.setInt( i + 1 , imagesIdsToDelete[i] );
+					for(int i = 0; i < imagesIdsToDelete.size(); i++) {
+						pstmtRemove.setInt( i + 1 , imagesIdsToDelete.get(i) );
 					}
 			        
 					pstmtRemove.execute();
@@ -201,38 +203,33 @@ public class ProductFormController{
 				if(!images.isEmpty()) {
 					
 					//INSERT IMAGES AND IMAGES PRODUCT LINK
-					String queryInsert = "";
-					queryInsert += "INSERT INTO image ( name, inserted_at ) ";
-					queryInsert += "VALUES ";
-					
-					int index = 0;
 					for(ProductImage image : images) {
-						if(image.getId().equals(null)) {
+						if(image.getImageId() == null) {
+							image.save();
+							String queryInsert = "";
+							queryInsert += "INSERT INTO product_image ( image_id, product_id ) ";
+							queryInsert += "VALUES ( ?, ? )";
 							
-							queryInsert += ((index > 0)? ", " : "") + "( ?, NOW() )";
-
+							pstmtInsert = database.connection.prepareStatement(queryInsert);
+							//salvar imagem na pasta e no banco -> retorna ids das imagens salvaas
+							
+							pstmtInsert.setInt( 1 , image.getImageId() );
+							pstmtInsert.setInt( 2 , this.product.getId() );
+							pstmtInsert.execute();
 						}
-					}
-					
-					if(index > 0) {
-						pstmtInsert = database.connection.prepareStatement(queryInsert);
-						
-						index = 1;
-						for(int i = 0; i < images.size(); i++) {
-							if(images.get(i).getId().equals(null)) {
-								String imageName = images.get(i).save();
-								pstmtInsert.setString( index , imageName );
-								i++;
-							}
-						}
-						
-						pstmtInsert.execute();						
 					}
 					
 				}
 				
 				database.connection.commit();
 				
+			}catch(RuntimeException e){
+				System.out.println(e.getMessage());
+				try { 
+					database.connection.rollback(); 
+				} catch (SQLException e1) { 
+					e1.printStackTrace(); 
+				}
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 				try { 

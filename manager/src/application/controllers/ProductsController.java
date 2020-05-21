@@ -1,5 +1,6 @@
 package application.controllers;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -140,7 +141,12 @@ public class ProductsController {
 			product.setQuantity(resultSet.getInt("quantity"));
 			
 			if(resultSet.getString("image") != null) {
-				ProductImage image = new ProductImage("application/assets/images/products/"+resultSet.getString("image"));
+				
+				File temp = new File("C:\\Directories\\fatec\\semestre3\\P.I\\project\\manager\\src\\application\\assets\\images\\products/"+resultSet.getString("image"));
+				System.out.println(temp.canRead());
+                temp.toURI().toString();
+                
+				ProductImage image = new ProductImage(temp.toURI().toString());
 				image.setProductId(resultSet.getInt("id"));
 				image.setImageId(resultSet.getInt("image_id"));
 				image.setId(resultSet.getInt("product_image_id"));

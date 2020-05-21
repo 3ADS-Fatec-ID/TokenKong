@@ -24,10 +24,9 @@ import javafx.stage.Stage;
 
 public class ImagePickerController {
 	
-	ArrayList<Integer> idsToDelete = new ArrayList<Integer>();
+	ProductImage coverImage = null;
 	
 	private ArrayList<ProductImage> images= new ArrayList<ProductImage>();
-	
 	
 	final FileChooser fileChooser = new FileChooser();
 	
@@ -46,23 +45,6 @@ public class ImagePickerController {
 		prepareContextMenu();
 	}
 	
-	private void prepareContextMenu() {
-		
-		fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
-                new FileChooser.ExtensionFilter("PNG", "*.png")
-        );
-		
-		MenuItem menuItemRemove = new MenuItem("Remove");
-		menuItemRemove.setOnAction(removeImage());
-		contextMenu.getItems().add(menuItemRemove);
-		
-		MenuItem menuItemSetCoverImage = new MenuItem("Set as cover");
-		menuItemSetCoverImage.setOnAction(setCoverImage());		
-		contextMenu.getItems().add(menuItemSetCoverImage);
-		
-	}
-	
 	private EventHandler<ActionEvent> chooseImage() {
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override
@@ -71,7 +53,7 @@ public class ImagePickerController {
 				Stage stage = (Stage)source.getScene().getWindow();
 				List<File> files = fileChooser.showOpenMultipleDialog(stage);
 				
-				if (files.size() > 0) {
+				if (!files.isEmpty()) {
 					String imagesNames = "";
 					int i = 0;
 					for(File file:files) {
@@ -94,13 +76,38 @@ public class ImagePickerController {
 		return eventHandler;
 	}
 	
+	private void prepareContextMenu() {
+		
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+		
+		MenuItem menuItemRemove = new MenuItem("Remove");
+		menuItemRemove.setOnAction(removeImage());
+		
+		MenuItem menuItemSetCoverImage = new MenuItem("Set as cover");
+		menuItemSetCoverImage.setOnAction(setCoverImage());
+		
+		contextMenu.getItems().add(menuItemRemove);
+		contextMenu.getItems().add(menuItemSetCoverImage);
+		
+	}
+	
 	private EventHandler<ActionEvent> setCoverImage() {
 		
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!contextMenu.getImage().equals(null)) {
-					//PRECISA SER FEITO
+					
+					/*
+					 * PRECISA SER FEITO
+					 * 
+					 * Configurar imagem como 'principal'
+					 * 
+					 * */
+					
 				}
 			}
 		};
@@ -114,11 +121,11 @@ public class ImagePickerController {
 			@Override
 			public void handle(ActionEvent event) {
 				if(!contextMenu.getImage().equals(null)) {
+					
 					ProductImage image = contextMenu.getImage();
-					if(!image.getId().equals(null)) {
-			    		idsToDelete.add(image.getId());
-			    	}
-			    	images.remove(image.getIndex().intValue());
+					image.remove = true;
+					image.setIndex(null);
+					
 			    	contextMenu.setImage(null);
 			    	updateImageQueue();
 				}
@@ -135,28 +142,31 @@ public class ImagePickerController {
 			}
 			ArrayList<ImageView> imageList = new ArrayList<ImageView>();
 			
-			if(images.size() > 0) {
+			if(!images.isEmpty()) {
 				for(int i = 0; i < images.size(); i++) {
 					ProductImage image = images.get(i);
-					image.setIndex(i);
 					
-					ImageView imageComponent = new ImageView(image);
-					imageComponent.setFitWidth(100);
-					imageComponent.setFitHeight(100);
-					imageComponent.setPreserveRatio(true);
-					
-					imageComponent.setOnContextMenuRequested( new EventHandler<ContextMenuEvent>() {
-						 
-			            @Override
-			            public void handle(ContextMenuEvent event) {
-			            	ProductImage image = (ProductImage)((ImageView)event.getTarget()).getImage();
-			            	contextMenu.setImage(image);
-			            	contextMenu.show(imageComponent , event.getScreenX(), event.getScreenY());
-			            }
-			        
-					});
-					
-					imageList.add(imageComponent);
+					if(!image.remove) {
+						image.setIndex(i);
+						
+						ImageView imageComponent = new ImageView(image);
+						imageComponent.setFitWidth(100);
+						imageComponent.setFitHeight(100);
+						imageComponent.setPreserveRatio(true);
+						
+						imageComponent.setOnContextMenuRequested( new EventHandler<ContextMenuEvent>() {
+							 
+				            @Override
+				            public void handle(ContextMenuEvent event) {
+				            	ProductImage image = (ProductImage)((ImageView)event.getTarget()).getImage();
+				            	contextMenu.setImage(image);
+				            	contextMenu.show(imageComponent , event.getScreenX(), event.getScreenY());
+				            }
+				        
+						});
+						
+						imageList.add(imageComponent);
+					}
 				
 				}
 			}else {
@@ -179,10 +189,6 @@ public class ImagePickerController {
 	
 	public ArrayList<ProductImage> getImages(){
 		return this.images;
-	}
-	
-	public ArrayList<Integer> getIdsToDelete() {
-		return idsToDelete;
 	}
 }
 

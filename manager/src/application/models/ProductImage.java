@@ -22,6 +22,7 @@ public class ProductImage extends Image{
 	private Integer imageId;
 	private Integer productId;
 	private String name;
+	public boolean remove = false;
 	
 	public ProductImage(String string) {
 		super(string);
@@ -88,7 +89,6 @@ public class ProductImage extends Image{
     	                throw new SQLException("Creating user failed, no ID obtained.");
     	            }
     	        }
-    			
     			
             }
             

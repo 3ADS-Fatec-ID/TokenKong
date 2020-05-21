@@ -139,7 +139,6 @@ public class ProductFormController{
 	
 	private EventHandler<ActionEvent> submit(){
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
-			
 			@Override 
 			public void handle(ActionEvent event) {
 				updateProduct();
@@ -160,7 +159,6 @@ public class ProductFormController{
 			try {				
 				database.connection.setAutoCommit(false);
 				
-				//UPDATE PRODUCT SIMPLE DATA
 				String queryUpdate = "UPDATE product SET name = ?, price = ?, quantity = ?, description = ? WHERE id = ?";
 				
 			    pstmtUpdate = database.connection.prepareStatement(queryUpdate);
@@ -169,49 +167,54 @@ public class ProductFormController{
 				pstmtUpdate.setFloat	(2, Float.parseFloat(product_price.getText().replace(',', '.')));
 				pstmtUpdate.setString	(3, product_quantity.getText());
 				pstmtUpdate.setString	(4, product_description.getText());
-				pstmtUpdate.setInt	(5, product.getId());
-				
+				pstmtUpdate.setInt		(5, product.getId());
+
 				pstmtUpdate.execute();
 				
-				ArrayList<Integer> imagesIdsToDelete = imagePickerController.getIdsToDelete();
-				
-				if(imagesIdsToDelete.size() > 0) {
-					
-					//DELETE PRODUCT LINK WITH IMAGES
-					String queryRemove = "";
-					queryRemove += "DELETE FROM ";
-					queryRemove += "product_image WHERE ";
-					queryRemove += "id IN ( ";
-					for(int i = 0; i < imagesIdsToDelete.size(); i++) {
-						if(i > 0) {
-							queryRemove += ", ";				
-						}
-						queryRemove += "?";
-					}
-					queryRemove += " ) ";
-					
-					pstmtRemove = database.connection.prepareStatement(queryRemove);
-					
-					for(int i = 0; i < imagesIdsToDelete.size(); i++) {
-						pstmtRemove.setInt( i + 1 , imagesIdsToDelete.get(i) );
-					}
-			        
-					pstmtRemove.execute();
-				}
-				
+				ArrayList<ProductImage> imagesToRemove = new ArrayList<ProductImage>();
 				ArrayList<ProductImage> images = imagePickerController.getImages();
+				
 				if(!images.isEmpty()) {
 					
-					//INSERT IMAGES AND IMAGES PRODUCT LINK
+					for(ProductImage image: images) {
+						Integer id = image.getId();
+						if(image.remove == true && id != null) {
+							imagesToRemove.add(image);
+						}
+					}
+				
+					if(!imagesToRemove.isEmpty()) {
+						
+						String queryRemove = "";
+						queryRemove += "DELETE FROM ";
+						queryRemove += "product_image WHERE ";
+						queryRemove += "id IN ( ";
+						for(int i = 0; i < imagesToRemove.size(); i++) {
+							if(i > 0) {
+								queryRemove += ", ";				
+							}
+							queryRemove += "?";
+						}
+						queryRemove += " ) ";
+						
+						pstmtRemove = database.connection.prepareStatement(queryRemove);
+						
+						for(int i = 0; i < imagesToRemove.size(); i++) {
+							pstmtRemove.setInt( i + 1 , imagesToRemove.get(i).getId() );
+						}
+				        
+						pstmtRemove.execute();
+					}
+					
 					for(ProductImage image : images) {
-						if(image.getImageId() == null) {
+						Integer id = image.getId();
+						if(id == null && image.remove == false) {
 							image.save();
 							String queryInsert = "";
 							queryInsert += "INSERT INTO product_image ( image_id, product_id ) ";
 							queryInsert += "VALUES ( ?, ? )";
 							
 							pstmtInsert = database.connection.prepareStatement(queryInsert);
-							//salvar imagem na pasta e no banco -> retorna ids das imagens salvaas
 							
 							pstmtInsert.setInt( 1 , image.getImageId() );
 							pstmtInsert.setInt( 2 , this.product.getId() );
@@ -230,6 +233,7 @@ public class ProductFormController{
 				} catch (SQLException e1) { 
 					e1.printStackTrace(); 
 				}
+				
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 				try { 
@@ -237,6 +241,7 @@ public class ProductFormController{
 				} catch (SQLException e1) { 
 					e1.printStackTrace(); 
 				}
+				
 			}finally {
 				try {
 					if(pstmtUpdate != null && !pstmtUpdate.isClosed()) {
@@ -247,7 +252,6 @@ public class ProductFormController{
 					}
 					database.disconnect();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

@@ -56,10 +56,6 @@ public class Main extends Application {
 		}
 	}
 	
-	public static void main(String[] args) {
-		launch(args);
-	}
-	
 	public static Parent getPagesParent ( Event event ) {
 		Node source = (Node)event.getSource();
 		Scene scene = source.getScene();
@@ -68,6 +64,10 @@ public class Main extends Application {
 		Parent parent3 = (Parent)parent2.getChildrenUnmodifiable().get(0);
 		Parent pagesParent = (Parent)parent3.getChildrenUnmodifiable().get(1);
 		return pagesParent;
+	}
+	
+	public static void main(String[] args) {
+		launch(args);
 	}
 
 }

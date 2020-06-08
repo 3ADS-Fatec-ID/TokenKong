@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="providers" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProvidersController">
+<VBox id="users" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.UsersController">
    <children>
       <HBox id="page_header" minHeight="36.0" prefHeight="36.0">
          <children>
@@ -72,10 +72,10 @@
                   </Label>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/icons/light/truck-outline.png" />
+                        <Image url="@../../assets/icons/light/account-multiple-outline.png" />
                      </image>
                   </ImageView>
-                  <Label text="Providers" textFill="WHITE">
+                  <Label text="Users" textFill="WHITE">
                      <font>
                         <Font name="Poppins Regular" size="12.0" />
                      </font>
@@ -102,10 +102,10 @@
                      <children>
                         <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../assets/icons/light/truck-outline.png" />
+                              <Image url="@../../assets/icons/light/account-multiple-outline.png" />
                            </image>
                         </ImageView>
-                        <Label text="Providers" textFill="WHITE">
+                        <Label text="Users" textFill="WHITE">
                            <font>
                               <Font name="Poppins Regular" size="18.0" />
                            </font>
@@ -125,7 +125,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT">
          <children>
-            <Button fx:id="add_provider" mnemonicParsing="false" text="New provider">
+            <Button fx:id="add_user" mnemonicParsing="false" text="New user">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -145,9 +145,6 @@
                </cursor>
             </Button>
          </children>
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -161,14 +158,13 @@
          </padding>
          <children>
             <TableView fx:id="table" VBox.vgrow="ALWAYS">
-               <columns>
+              <columns>
                   <TableColumn fx:id="column_code" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="50.0" text="Code" />
-                  <TableColumn fx:id="column_name" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Name" />
-                  <TableColumn fx:id="column_phone" maxWidth="1.7976931348623157E308" minWidth="75.0" prefWidth="-1.0" text="Phone" />
-                  <TableColumn fx:id="column_email" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Email" />
-                  <TableColumn fx:id="column_cep" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="CEP" />
-                  <TableColumn fx:id="column_addressNumber" maxWidth="1.7976931348623157E308" minWidth="100.0" prefWidth="-1.0" text="Address Number" />
-               </columns>
+                <TableColumn fx:id="column_name" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" text="Name" />
+                <TableColumn fx:id="column_email" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="180.0" text="Email" />
+                  <TableColumn fx:id="column_role" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" text="Level Access" />
+                  <TableColumn fx:id="column_status" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" text="Status" />
+              </columns>
             </TableView>
          </children>
       </VBox>

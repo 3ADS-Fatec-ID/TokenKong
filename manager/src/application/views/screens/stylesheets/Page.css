@@ -81,17 +81,53 @@
 	-fx-background-color:transparent;
 	-fx-border-color: transparent;
 }
-.cancel_button{
-	-fx-pref-height:28;
-	-fx-background-radius:14;
-	-fx-background-color: #f66;
-	-fx-text-fill: #fff;
-	-fx-padding: 0 10 0 8;
+
+.table-view{
+   -fx-background-color: transparent;
 }
-.submit_button{
-	-fx-pref-height:28;
-	-fx-background-radius:14;
-	-fx-background-color: #7c5;
+.table-view .column-header,
+.table-view .column-header .filler,
+.table-view .column-header-background .filler{
+    -fx-background-color:#fff;
+}
+.table-view .column-header-background .filler,.table-view .column-header{
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color:#eee;
+	-fx-border-style:solid;
+}
+.table-view .column-header .label {
+    -fx-text-fill: #333;
+    -fx-font-weight: normal;
+}
+.table-view .column-header .label{
+    -fx-alignment:BOTTOM_LEFT
+}
+.table-view .cell{
+  	-fx-border-width: 0 0 1 0;
+}
+
+.choice-box {
+  	-fx-background-color: transparent;
+	-fx-border-radius: 5 5 5 5;
+	-fx-border-width: 1 1 2 1;
+	-fx-border-color: derive(#84a9ac, 70%);
+  	-fx-mark-color: #84a9ac;
+}
+.choice-box > .label { 
+	-fx-text-fill: #84a9ac;
+}
+.choice-box .context-menu { 
+	-fx-min-width: 130;
+}
+.choice-box .menu-item {
+	-fx-cursor: hand;
+}
+.choice-box .menu-item:focused { 
+	-fx-background-color: #84a9ac;
+}
+.choice-box .menu-item > .label { 
+	-fx-text-fill: #84a9ac;
+}
+.choice-box .menu-item:focused > .label { 
 	-fx-text-fill: #fff;
-	-fx-padding: 0 10 0 8;
 }

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
@@ -13,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox id="products" style="-fx-background-color: #fff;" stylesheets="@stylesheets/Page.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProductsController">
+<VBox id="products" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.ProductsController">
    <children>
       <HBox id="page_header" minHeight="36.0" prefHeight="36.0">
          <children>
@@ -121,6 +123,35 @@
             <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-radius: 8 0 0 0; -fx-background-color: #fff;" HBox.hgrow="ALWAYS" />
          </children>
       </HBox>
+      <HBox alignment="TOP_RIGHT">
+         <children>
+            <Button fx:id="add_product" mnemonicParsing="false" text="New product">
+               <graphic>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/icons/primary/plus-thick.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <styleClass>
+                  <String fx:value="principal_button" />
+                  <String fx:value="strocked_button" />
+               </styleClass>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets bottom="4.0" left="30.0" right="30.0" top="15.0" />
+         </padding>
+      </HBox>
       <ScrollPane fx:id="scroller" hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
          <content>
             <VBox fx:id="scroller_content">
@@ -145,4 +176,8 @@
          </padding>
       </ScrollPane>
    </children>
+   <stylesheets>
+      <URL value="@stylesheets/Page.css" />
+      <URL value="@../components/stylesheets/Buttons.css" />
+   </stylesheets>
 </VBox>

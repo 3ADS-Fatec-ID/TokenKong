@@ -25,11 +25,10 @@ import javafx.stage.FileChooser;
 
 public class ProductFormController{
 	
-	DB database = new DB();
-	
+	private DB database = new DB();
 	private Product product = new Product();
 	final FileChooser fileChooser = new FileChooser();
-	ImagePickerController imagePickerController = new ImagePickerController();
+	public ImagePickerController imagePickerController = new ImagePickerController();
 	
 	@FXML 
 	public HBox page_content;
@@ -62,10 +61,12 @@ public class ProductFormController{
 	}
 	
 	private void setInitialFormValues() {
-		product_name.setText(product.getName());
-		product_price.setText(String.format("%.2f", product.getPrice()));
-		product_description.setText(product.getDescription());
-		product_quantity.setText(String.format("%d", product.getQuantity()));
+		if(this.product.getId() != null) {
+			product_name.setText(product.getName());
+			product_price.setText(String.format("%.2f", product.getPrice()));
+			product_description.setText(product.getDescription());
+			product_quantity.setText(String.format("%d", product.getQuantity()));
+		}
 	}
 	
 	private void loadProduct() {
@@ -120,7 +121,7 @@ public class ProductFormController{
 	
 	private void generateImagePicker() {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/ImagePicker.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/ImagePickerComponent.fxml"));
 			ArrayList<ProductImage> images = product.getImages();
 			imagePickerController.setImages(images);
 			

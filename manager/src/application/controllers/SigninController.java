@@ -37,17 +37,19 @@ public class SigninController implements Initializable{
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				String userName = userName_textField.getText();
+				/*String userName = userName_textField.getText();
 				String password = password_passwordField.getText();
-				User user = new User(userName, password);
+				User user = new User();
+				user.setName(userName);
+				user.setPassword(password);
 				
 				if(user.isAuthenticated()) {
-					user = null;
+					user = null;*/
 					openApp();
-				}else {
+				/*}else {
 					user = null;
 					System.out.println("Not authenticated!");
-				}
+				}*/
 			}
 		};
 		

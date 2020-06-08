@@ -29,8 +29,8 @@ import javafx.scene.layout.VBox;
 
 public class ProductsController {
 	
-	DB database = new DB();
-	ArrayList<Product> products = new ArrayList<Product>();
+	private DB database = new DB();
+	public ArrayList<Product> products = new ArrayList<Product>();
 	
 	@FXML 
 	public Button go_back;
@@ -143,7 +143,7 @@ public class ProductsController {
 			if(resultSet.getString("image") != null) {
 				
 				File temp = new File("C:\\Directories\\fatec\\semestre3\\P.I\\project\\manager\\src\\application\\assets\\images\\products/"+resultSet.getString("image"));
-				System.out.println(temp.canRead());
+
                 temp.toURI().toString();
                 
 				ProductImage image = new ProductImage(temp.toURI().toString());

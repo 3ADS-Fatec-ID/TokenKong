@@ -20,7 +20,7 @@ import javafx.util.Duration;
 public class DrawerController implements Initializable{
 	
 	public boolean oppened = false;
-	FxmlLoader pageLoader = new FxmlLoader();
+	private FxmlLoader pageLoader = new FxmlLoader();
 		
 	@FXML public Button toggle_drawer;
 	
@@ -28,6 +28,7 @@ public class DrawerController implements Initializable{
 	@FXML public Button categories_button;
 	@FXML public Button products_button;
 	@FXML public Button providers_button;
+	@FXML public Button users_button;
 	@FXML public Button logout_button;
 	
 	@FXML public VBox drawer;
@@ -77,6 +78,16 @@ public class DrawerController implements Initializable{
 			}
 		}else {
 			this.changePage("ProvidersView");
+		}
+	}
+	@FXML public void showUsersPage(ActionEvent event) {
+		if(!content.getChildren().isEmpty()) {
+			Node page = content.getChildren().get(0);;
+			if(!page.getId().toString().equals("users")) {
+				this.changePage("UsersView");
+			}
+		}else {
+			this.changePage("UsersView");
 		}
 	}
 	

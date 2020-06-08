@@ -4,13 +4,12 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import application.models.ProductImage;
+import application.models.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -24,13 +23,13 @@ import javafx.stage.Stage;
 
 public class ImagePickerController {
 	
-	ProductImage coverImage = null;
+	public ProductImage coverImage = null;
 	
 	private ArrayList<ProductImage> images= new ArrayList<ProductImage>();
 	
-	final FileChooser fileChooser = new FileChooser();
+	public final FileChooser fileChooser = new FileChooser();
 	
-	ImageContextMenu contextMenu = new ImageContextMenu();
+	public ImageContextMenu contextMenu = new ImageContextMenu();
 	
 	@FXML VBox image_picker;
 	@FXML ScrollPane image_queue;
@@ -53,7 +52,7 @@ public class ImagePickerController {
 				Stage stage = (Stage)source.getScene().getWindow();
 				List<File> files = fileChooser.showOpenMultipleDialog(stage);
 				
-				if (!files.isEmpty()) {
+				if (files != null && !files.isEmpty()) {
 					String imagesNames = "";
 					int i = 0;
 					for(File file:files) {
@@ -189,18 +188,5 @@ public class ImagePickerController {
 	
 	public ArrayList<ProductImage> getImages(){
 		return this.images;
-	}
-}
-
-class ImageContextMenu extends ContextMenu{
-	
-	private ProductImage image = null;
-	
-	public ProductImage getImage() {
-		return image;
-	}
-
-	public void setImage(ProductImage image) {
-		this.image = image;
 	}
 }

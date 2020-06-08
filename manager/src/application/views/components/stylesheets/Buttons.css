@@ -1,0 +1,32 @@
+.principal_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
+	-fx-background-color: #84a9ac;
+	-fx-text-fill: #fff;
+	-fx-padding: 0 10 0 8;
+	-fx-border-radius:14;
+}
+.strocked_button{
+	-fx-text-fill: #84a9ac;
+	-fx-background-color: #fff;
+	-fx-border-width: 1;
+	-fx-border-color: #84a9ac;
+}
+.flat_button{
+	-fx-text-fill: #84a9ac;
+	-fx-background-color: #fff;
+}
+.cancel_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
+	-fx-background-color: #f66;
+	-fx-text-fill: #fff;
+	-fx-padding: 0 10 0 8;
+}
+.submit_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
+	-fx-background-color: #7c5;
+	-fx-text-fill: #fff;
+	-fx-padding: 0 10 0 8;
+}

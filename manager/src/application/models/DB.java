@@ -5,10 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DB {
-	public String user = "root";
-	public String database = "tokenkong";
-	public String password = "123456";
-	public String host = "localhost:3306";
+	private String user = "root";
+	private String database = "tokenkong";
+	private String password = "123456";
+	private String host = "localhost:3306";
 	
 	public Connection connection = null;
 	

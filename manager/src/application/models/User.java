@@ -1,8 +1,6 @@
 package application.models;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import application.DAO.UserDAO;
 
 public class User {
 	private Integer id;
@@ -65,44 +63,11 @@ public class User {
 	public boolean isAuthenticated(){
 		
 		boolean result = false;
-		
-		DB database = new DB();
-		database.connect();
-		ResultSet resultSet = null;
-		
-		String query = "SELECT * FROM USER WHERE (name = ? OR email = ?) AND password = ? ";
-		
-		if(database.connection != null) {
-			try(
-				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
-			){				
-				
-				preparedStatement.setString(1,this.name);
-				preparedStatement.setString(2,this.name);
-				preparedStatement.setString(3,this.password);
-				
-				if (preparedStatement.execute()) {
-					
-					resultSet = preparedStatement.getResultSet();
-					if(resultSet != null) {
-						
-						int resultLength = 0;
-						while (resultSet.next()) {
-							resultLength++;
-						}
-						
-						if(resultLength > 0) {
-							result = true;
-						}else {
-							result = false;
-						}
-					}
-				}
-			}catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}finally {
-				database.disconnect();
-			}	
+		try {
+			result = UserDAO.getUserByEmailAndPassword(this.name, this.password) != null;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			//show error message
 		}
 		
 		return result;

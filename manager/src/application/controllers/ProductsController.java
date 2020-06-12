@@ -1,15 +1,10 @@
 package application.controllers;
 
-import java.io.File;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.Main;
-import application.models.DB;
+import application.DAO.ProductDAO;
 import application.models.Product;
-import application.models.ProductImage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -28,8 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class ProductsController {
-	
-	private DB database = new DB();
+
 	public ArrayList<Product> products = new ArrayList<Product>();
 	
 	@FXML 
@@ -86,84 +80,26 @@ public class ProductsController {
 	
 	private void loadProducts() {
 		
-		database.connect();
-		ResultSet resultSet = null;
-		
-		String query = "";
-		query += "SELECT ";
-		query += "P.*, ";
-		query += "I.name as image, ";
-		query += "I.id as image_id, ";
-		query += "PI.id as product_image_id ";
-		query += "FROM product as P ";
-		query += "LEFT JOIN product_image as PI ";
-		query += "ON PI.product_id = P.id ";
-		query += "LEFT JOIN image as I ";
-		query += "ON I.id = PI.image_id ";
-		query += "GROUP BY P.id ";
-		
-		if(this.database.connection != null) {
-			try{				
-				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
-				if (preparedStatement.execute()) {
-					
-					resultSet = preparedStatement.getResultSet();
-					if(resultSet != null) {
-						
-						while (resultSet.next()) {
-							Node userCard = this.createCardComponent(resultSet);
-							products_grid.getChildren().add(userCard);
-						}
-						
-					}
-				}
-			}catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}finally {
-				database.disconnect();
-			}	
+		ArrayList<Product> products = ProductDAO.getProducts();
+		for(Product product: products){
+			Node userCard = this.createCardComponent(product);
+			products_grid.getChildren().add(userCard);			
 		}
 		
 	}
 	
-	private Node createCardComponent(ResultSet resultSet) {
+	private Node createCardComponent(Product product) {
 			
 		Node node = new StackPane();
 		
 		try {
-
 			ProductCardController productCardController = new ProductCardController();
-			Product product = new Product();
-			
-			product.setId(resultSet.getInt("id"));
-			product.setName(resultSet.getString("name"));
-			product.setPrice(resultSet.getDouble("price"));
-			product.setQuantity(resultSet.getInt("quantity"));
-			
-			if(resultSet.getString("image") != null) {
-				
-				File temp = new File("C:\\Directories\\fatec\\semestre3\\P.I\\project\\manager\\src\\application\\assets\\images\\products/"+resultSet.getString("image"));
-
-                temp.toURI().toString();
-                
-				ProductImage image = new ProductImage(temp.toURI().toString());
-				image.setProductId(resultSet.getInt("id"));
-				image.setImageId(resultSet.getInt("image_id"));
-				image.setId(resultSet.getInt("product_image_id"));
-				image.setName(resultSet.getString("image"));
-				
-				ArrayList<ProductImage> imageList = new ArrayList<ProductImage>();
-				imageList.add(image);
-				product.setImages(imageList);
-			}
-			
 			productCardController.setProduct(product);
 			this.products.add(product);
 			
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/ProductCardComponent.fxml"));
 			fxmlLoader.setController(productCardController);
 			node = fxmlLoader.load();
-			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}

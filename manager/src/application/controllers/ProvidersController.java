@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.Main;
-import application.models.DB;
+import application.DAO.DB;
 import application.models.Provider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

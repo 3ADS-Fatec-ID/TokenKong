@@ -4,7 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import application.Main;
-import application.models.DB;
+import application.DAO.DB;
 import application.models.Provider;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

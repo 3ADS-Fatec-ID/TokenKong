@@ -2,7 +2,6 @@ package application.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
 import application.models.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -30,6 +29,21 @@ public class SigninController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		signin_button.setOnAction(signin());
+		close_button.setOnMouseClicked(close());
+	}
+	
+	public EventHandler<MouseEvent> close() {
+		
+		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				Stage stage = (Stage) ((ImageView)event.getSource()).getScene().getWindow();
+				stage.close();
+			}
+		};
+		
+		return eventHandler;
+		
 	}
 	
 	public EventHandler<ActionEvent> signin() {
@@ -37,19 +51,19 @@ public class SigninController implements Initializable{
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				/*String userName = userName_textField.getText();
+				String userName = userName_textField.getText();
 				String password = password_passwordField.getText();
 				User user = new User();
 				user.setName(userName);
 				user.setPassword(password);
 				
 				if(user.isAuthenticated()) {
-					user = null;*/
+					user = null;
 					openApp();
-				/*}else {
+				}else {
 					user = null;
 					System.out.println("Not authenticated!");
-				}*/
+				}
 			}
 		};
 		
@@ -62,7 +76,6 @@ public class SigninController implements Initializable{
 			
 			Stage rootStage = (Stage) signin_button.getScene().getWindow();
 			
-			//open app window as a new stage
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/DrawerComponent.fxml"));
 			DrawerController drawerController = new DrawerController();
 			fxmlLoader.setController(drawerController);
@@ -78,11 +91,6 @@ public class SigninController implements Initializable{
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	@FXML public void closeApplication(MouseEvent event) {
-		Stage stage = (Stage) close_button.getScene().getWindow();
-		stage.close();
 	}
 	
 }

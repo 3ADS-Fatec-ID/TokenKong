@@ -1,8 +1,8 @@
-package application.models;
+package application;
 
 import java.security.SecureRandom;
 
-public class UtilMethods {
+public class UtilsMethods {
 	
 	public static String generateRandomString(int length) {
 	    // You can customize the characters that you want to add into

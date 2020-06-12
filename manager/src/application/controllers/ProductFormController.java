@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.Main;
-import application.models.DB;
+import application.DAO.DB;
 import application.models.Product;
 import application.models.ProductImage;
 import javafx.event.ActionEvent;

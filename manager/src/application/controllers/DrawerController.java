@@ -2,13 +2,12 @@ package application.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import application.models.FxmlLoader;
 import javafx.animation.Animation;
 import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -151,6 +150,19 @@ public class DrawerController implements Initializable{
                 openDrawer.play();
             }
         }
+	}
+	
+	public class FxmlLoader {
+		private VBox view;
+		
+		public VBox getPage(String fileName) {
+			try {
+				view = FXMLLoader.load(getClass().getResource("/application/views/screens/"+fileName+".fxml"));
+			}catch(Exception e) {
+				System.out.println("Nenhuma página foi encontrada!");
+			}
+			return view;
+		}
 	}
 	
 }

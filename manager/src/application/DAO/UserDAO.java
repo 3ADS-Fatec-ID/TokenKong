@@ -45,7 +45,7 @@ public class UserDAO {
 				if (preparedStatement.execute()) {
 					ResultSet resultSet = preparedStatement.getResultSet();
 					if(!resultSet.equals(null)) {
-						users = resultSetToUsers(resultSet);
+						users = resultSetToUserList(resultSet);
 						if(users.size() == 1) {
 							user = users.get(0);
 						}
@@ -61,7 +61,7 @@ public class UserDAO {
 		return user;
 	}
 	
-	private static ArrayList<User> resultSetToUsers(ResultSet resultSet) throws SQLException{
+	private static ArrayList<User> resultSetToUserList(ResultSet resultSet) throws SQLException{
 		ArrayList<User> users = new ArrayList<User>();
 		
 		while (resultSet.next()) {

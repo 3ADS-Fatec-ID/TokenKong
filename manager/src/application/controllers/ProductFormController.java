@@ -1,12 +1,9 @@
 package application.controllers;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.Main;
-import application.DAO.DB;
+import application.DAO.ProductDAO;
 import application.models.Product;
 import application.models.ProductImage;
 import javafx.event.ActionEvent;
@@ -25,7 +22,6 @@ import javafx.stage.FileChooser;
 
 public class ProductFormController{
 	
-	private DB database = new DB();
 	private Product product = new Product();
 	final FileChooser fileChooser = new FileChooser();
 	public ImagePickerController imagePickerController = new ImagePickerController();
@@ -47,10 +43,6 @@ public class ProductFormController{
 	@FXML 
 	public TextArea product_description;
 	
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-	
 	public void initialize() {
 		this.setInitialFormValues();
 		this.generateImagePicker();
@@ -58,6 +50,10 @@ public class ProductFormController{
 		this.go_back.setOnMouseClicked(this.goBack());
 		this.cancel_button.setOnMouseClicked(goBack());
 		this.submit_button.setOnAction(submit());
+	}
+	
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 	
 	private void setInitialFormValues() {
@@ -70,52 +66,14 @@ public class ProductFormController{
 	}
 	
 	private void loadProduct() {
-		if(product.getId() != null) {
-			database.connect();
-			ResultSet resultSet = null;
-			
-			String query = "";
-			query += "SELECT ";
-			query += "P.*, ";
-			query += "I.name as image, ";
-			query += "I.id as image_id, ";
-			query += "PI.id as product_image_id ";
-			query += "FROM product as P ";
-			query += "LEFT JOIN product_image as PI ";
-			query += "ON PI.product_id = P.id ";
-			query += "LEFT JOIN image as I ";
-			query += "ON I.id = PI.image_id ";
-			query += "WHERE P.id = " + product.getId() + " ";
-			
-			if(this.database.connection != null) {
-				try{				
-					PreparedStatement preparedStatement = this.database.connection.prepareStatement(query);
-					if (preparedStatement.execute()) {
-						
-						resultSet = preparedStatement.getResultSet();
-						if(resultSet != null) {
-							ArrayList<ProductImage> productImages = new ArrayList<ProductImage>();
-							while (resultSet.next()) {
-								ProductImage productImage = new ProductImage("/application/assets/images/products/"+resultSet.getString("image"));
-								productImage.setName(resultSet.getString("image"));
-								productImage.setImageId(resultSet.getInt("image_id"));
-								productImage.setProductId(resultSet.getInt("id"));
-								productImage.setId(resultSet.getInt("product_image_id"));
-								
-								productImages.add(productImage);
-							}
-							product.setImages(productImages);
-							this.imagePickerController.setImages(product.getImages());
-						}
-					}
-				}catch(SQLException e2) {
-					System.out.println(e2.getMessage());
-				}catch(Exception e1) {
-					System.out.println(e1.getMessage());
-				}finally {
-					this.database.disconnect();
-				}	
+		Integer productId = product.getId();
+		try {
+			if(productId != null) {
+				this.product = ProductDAO.getOne(productId);
+				this.imagePickerController.setImages(product.getImages());
 			}
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -150,112 +108,31 @@ public class ProductFormController{
 	}
 	
 	private void updateProduct() {
-		database.connect();
+		try {
+			Product product = new Product();
+			product.setId(this.product.getId());
+			product.setName(product_name.getText());
+			product.setImages(imagePickerController.getImages());
+			product.setDescription(product_description.getText());
+			product.setQuantity(Integer.parseInt(product_quantity.getText()));
+			product.setPrice(Double.parseDouble(product_price.getText().replace(',', '.')));
 		
-		PreparedStatement pstmtUpdate = null;
-		PreparedStatement pstmtRemove = null;
-		PreparedStatement pstmtInsert = null;
-		
-		if(database.connection != null) {
-			try {				
-				database.connection.setAutoCommit(false);
+			this.product = ProductDAO.update(product);
+			
+			if(this.product.equals(null)) {
+				setInitialFormValues();
+				Thread.sleep(5000);
+				imagePickerController.setImages(this.product.getImages());
 				
-				String queryUpdate = "UPDATE product SET name = ?, price = ?, quantity = ?, description = ? WHERE id = ?";
+				//show success message
 				
-			    pstmtUpdate = database.connection.prepareStatement(queryUpdate);
-				
-				pstmtUpdate.setString	(1, product_name.getText());
-				pstmtUpdate.setFloat	(2, Float.parseFloat(product_price.getText().replace(',', '.')));
-				pstmtUpdate.setString	(3, product_quantity.getText());
-				pstmtUpdate.setString	(4, product_description.getText());
-				pstmtUpdate.setInt		(5, product.getId());
-
-				pstmtUpdate.execute();
-				
-				ArrayList<ProductImage> imagesToRemove = new ArrayList<ProductImage>();
-				ArrayList<ProductImage> images = imagePickerController.getImages();
-				
-				if(!images.isEmpty()) {
-					
-					for(ProductImage image: images) {
-						Integer id = image.getId();
-						if(image.remove == true && id != null) {
-							imagesToRemove.add(image);
-						}
-					}
-				
-					if(!imagesToRemove.isEmpty()) {
-						
-						String queryRemove = "";
-						queryRemove += "DELETE FROM ";
-						queryRemove += "product_image WHERE ";
-						queryRemove += "id IN ( ";
-						for(int i = 0; i < imagesToRemove.size(); i++) {
-							if(i > 0) {
-								queryRemove += ", ";				
-							}
-							queryRemove += "?";
-						}
-						queryRemove += " ) ";
-						
-						pstmtRemove = database.connection.prepareStatement(queryRemove);
-						
-						for(int i = 0; i < imagesToRemove.size(); i++) {
-							pstmtRemove.setInt( i + 1 , imagesToRemove.get(i).getId() );
-						}
-				        
-						pstmtRemove.execute();
-					}
-					
-					for(ProductImage image : images) {
-						Integer id = image.getId();
-						if(id == null && image.remove == false) {
-							image.save();
-							String queryInsert = "";
-							queryInsert += "INSERT INTO product_image ( image_id, product_id ) ";
-							queryInsert += "VALUES ( ?, ? )";
-							
-							pstmtInsert = database.connection.prepareStatement(queryInsert);
-							
-							pstmtInsert.setInt( 1 , image.getImageId() );
-							pstmtInsert.setInt( 2 , this.product.getId() );
-							pstmtInsert.execute();
-						}
-					}
-					
-				}
-				
-				database.connection.commit();
-				
-			}catch(RuntimeException e){
-				System.out.println(e.getMessage());
-				try { 
-					database.connection.rollback(); 
-				} catch (SQLException e1) { 
-					e1.printStackTrace(); 
-				}
-				
-			}catch(Exception e) {
-				System.out.println(e.getMessage());
-				try { 
-					database.connection.rollback(); 
-				} catch (SQLException e1) { 
-					e1.printStackTrace(); 
-				}
-				
-			}finally {
-				try {
-					if(pstmtUpdate != null && !pstmtUpdate.isClosed()) {
-						pstmtUpdate.close();
-					}
-					if(pstmtRemove != null && !pstmtRemove.isClosed()) {
-						pstmtRemove.close();
-					}
-					database.disconnect();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+			}else {
+				//show success message with error to reload user
 			}
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			//show error message
 		}
 	}
 	

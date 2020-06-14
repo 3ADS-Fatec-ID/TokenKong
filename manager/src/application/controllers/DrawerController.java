@@ -13,13 +13,13 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class DrawerController implements Initializable{
 	
 	public boolean oppened = false;
-	private FxmlLoader pageLoader = new FxmlLoader();
 		
 	@FXML public Button toggle_drawer;
 	
@@ -33,6 +33,7 @@ public class DrawerController implements Initializable{
 	@FXML public VBox drawer;
 	@FXML public VBox pseudoDrawer;
 	@FXML public HBox content;
+	@FXML public StackPane composition;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -91,12 +92,19 @@ public class DrawerController implements Initializable{
 	}
 	
 	public void changePage(String pageName) {
-		VBox page = pageLoader.getPage(pageName);
-		HBox.setHgrow(page, Priority.ALWAYS);
-		if(content.getChildren().isEmpty()) {
-			content.getChildren().add(page);
-		}else {
-			content.getChildren().set(0, page);			
+		
+		try {
+			VBox page = FXMLLoader.load(getClass().getResource("/application/views/screens/"+pageName+".fxml"));
+			HBox.setHgrow(page, Priority.ALWAYS);
+			
+			if(content.getChildren().isEmpty()) {
+				content.getChildren().add(page);
+			}else {
+				content.getChildren().set(0, page);			
+			}
+			
+		}catch(Exception e) {
+			System.out.println("Nenhuma página foi encontrada!");
 		}
 	}
 	
@@ -122,7 +130,7 @@ public class DrawerController implements Initializable{
         final Animation openDrawer = new Transition() {
             { setCycleDuration(Duration.millis(250)); }
             protected void interpolate(double frac) {
-                pseudoDrawer.setPrefWidth(((startWidth - minPseudoDrawerWidth) * frac) + (minPseudoDrawerWidth - ((5*(frac * 100)) / 100)));
+                pseudoDrawer.setPrefWidth(((startWidth - minPseudoDrawerWidth) * frac) + minPseudoDrawerWidth - (5 * frac));
                 drawer.setMaxWidth(((startWidth - minDrawerWidth) * frac) + minDrawerWidth);
             }
         };
@@ -150,19 +158,6 @@ public class DrawerController implements Initializable{
                 openDrawer.play();
             }
         }
-	}
-	
-	public class FxmlLoader {
-		private VBox view;
-		
-		public VBox getPage(String fileName) {
-			try {
-				view = FXMLLoader.load(getClass().getResource("/application/views/screens/"+fileName+".fxml"));
-			}catch(Exception e) {
-				System.out.println("Nenhuma página foi encontrada!");
-			}
-			return view;
-		}
 	}
 	
 }

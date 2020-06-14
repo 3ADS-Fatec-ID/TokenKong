@@ -45,7 +45,6 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.setFill(Color.TRANSPARENT);
 			stage.setScene(scene);
-			
 			DropShadow shadow = new DropShadow(15, new Color(0, 0 ,0 , 0.3));
 			shadow.setOffsetY(5);
 			stage.getScene().getRoot().setEffect(shadow);

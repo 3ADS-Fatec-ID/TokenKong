@@ -1,12 +1,15 @@
 package application.controllers;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import application.Main;
 import application.DAO.ProductDAO;
+import application.models.Dialog;
 import application.models.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,24 +25,25 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class ProductsController {
-
+public class ProductsController extends Dialog{
+	
+	public BrandDialogController brandDialogController;
+	public CategoryDialogController categoryDialogController;
 	public ArrayList<Product> products = new ArrayList<Product>();
 	
-	@FXML 
-	public Button go_back;
-	@FXML
-	public ScrollPane scroller;
-	@FXML
-	public FlowPane products_grid;
-	@FXML
-	public VBox scroller_content;
+	@FXML public Button go_back;
+	@FXML public ScrollPane scroller;
+	@FXML public FlowPane products_grid;
+	@FXML public VBox scroller_content;
+	@FXML public Button brandButton;
+	@FXML public Button categoryButton;
 
 	@FXML
 	public void initialize() {
 		
 		this.go_back.setOnMouseClicked(this.goBack());
-		
+		this.brandButton.setOnAction(this.openBrandDialog());
+		this.categoryButton.setOnAction(this.openCategoryDialog());
 		scroller.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
             @Override
             public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
@@ -79,13 +83,16 @@ public class ProductsController {
 	}
 	
 	private void loadProducts() {
-		
-		ArrayList<Product> products = ProductDAO.getProducts();
-		for(Product product: products){
-			Node userCard = this.createCardComponent(product);
-			products_grid.getChildren().add(userCard);			
+		try {
+			ArrayList<Product> products = ProductDAO.getAll();
+			for(Product product: products){
+				Node userCard = this.createCardComponent(product);
+				products_grid.getChildren().add(userCard);			
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			//show error message
 		}
-		
 	}
 	
 	private Node createCardComponent(Product product) {
@@ -105,6 +112,74 @@ public class ProductsController {
 		}
 		
 		return node;
+	}
+	
+	private EventHandler<ActionEvent> openBrandDialog() {
+		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
+			@Override 
+			public void handle(ActionEvent event) {
+				try {
+					
+					brandDialogController = new BrandDialogController();
+					
+					VBox content = null;
+	
+					FXMLLoader loader = new FXMLLoader();
+					loader.setController(brandDialogController);
+					File file = new File("src\\application\\views\\dialogs\\BrandDialog.fxml");
+					
+					loader.setLocation(file.toURI().toURL());
+					
+					content = (VBox)loader.load();
+					HBox.setHgrow(content, Priority.ALWAYS);
+					brandDialogController.closeDialog.setId("closeDialog");
+					brandDialogController.closeDialog.setOnMouseClicked(closeDialog());
+					setDialog(event, content);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+					//show dialog load error;
+					
+				}
+			}
+		};
+		
+		return eventHandler;
+	}
+	
+	private EventHandler<ActionEvent> openCategoryDialog() {
+		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
+			@Override 
+			public void handle(ActionEvent event) {
+				try {
+					
+					categoryDialogController = new CategoryDialogController();
+					
+					VBox content = null;
+	
+					FXMLLoader loader = new FXMLLoader();
+					loader.setController(categoryDialogController);
+					File file = new File("src\\application\\views\\dialogs\\CategoryDialog.fxml");
+					
+					loader.setLocation(file.toURI().toURL());
+					
+					content = (VBox)loader.load();
+					HBox.setHgrow(content, Priority.ALWAYS);
+					categoryDialogController.closeDialog.setId("closeDialog");
+					categoryDialogController.closeDialog.setOnMouseClicked(closeDialog());
+					setDialog(event, content);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+					
+					//show dialog load error;
+					
+				}
+			}
+		};
+		
+		return eventHandler;
 	}
 
 }

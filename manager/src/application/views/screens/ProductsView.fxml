@@ -125,6 +125,54 @@
       </HBox>
       <HBox alignment="TOP_RIGHT">
          <children>
+            <HBox HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="brandButton" mnemonicParsing="false" text="Brands">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/primary/tag-multiple-outline.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="principal_button" />
+                        <String fx:value="strocked_button" />
+                     </styleClass>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="categoryButton" mnemonicParsing="false" text="Categories">
+                     <graphic>
+                        <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../assets/icons/primary/view-grid-outline.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <styleClass>
+                        <String fx:value="principal_button" />
+                        <String fx:value="strocked_button" />
+                     </styleClass>
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                     <HBox.margin>
+                        <Insets right="8.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
             <Button fx:id="add_product" mnemonicParsing="false" text="New product">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">

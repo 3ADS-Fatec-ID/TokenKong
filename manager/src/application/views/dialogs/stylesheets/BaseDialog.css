@@ -1,0 +1,15 @@
+.background{
+   -fx-background-color:#00000033;
+   -fx-padding: 30;
+}
+.dialog{
+	-fx-background-color: #fff;
+	-fx-background-radius: 4;
+	-fx-border-radius: 4;
+}
+.scroll-pane{
+   -fx-background-color:transparent;
+}
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}

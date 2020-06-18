@@ -1,0 +1,16 @@
+#snack{
+	-fx-background-radius: 4;
+	-fx-border-radius: 4;
+}
+.success{
+	-fx-background-color: #9d6;
+}
+.error{
+	-fx-background-color: #f44;
+}
+.warning{
+	-fx-background-color: #ffb34f;
+}
+.info{
+	-fx-background-color: #79f;
+}

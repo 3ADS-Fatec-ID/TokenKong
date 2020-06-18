@@ -1,11 +1,9 @@
 package application.models;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
 import javax.imageio.ImageIO;
@@ -88,18 +86,36 @@ public class ProductImage extends Image{
     	                this.setImageId((int)generatedKeys.getLong(1));
     	            }
     	            else {
-    	                throw new SQLException("Creating user failed, no ID obtained.");
+    	                throw new Exception();
     	            }
     	        }
     			
             }
             
-		}catch(SQLException e) {
+		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			throw new Exception(e.getMessage());
-		}catch (IOException e) {
-	    	throw new Exception(e.getMessage());
-	    }finally {
+			throw e;
+		}finally {
+			database.disconnect();
+		}
+	}
+	
+	public void remove() throws Exception {
+		
+		database.connect();
+		try {
+			String path = Paths.get("").toAbsolutePath().toString();
+			String fname= path+"/src/application/assets/images/products/"+this.getName();
+			File file = new File(fname);
+			
+            if (!file.delete()) {
+            	throw new Exception();
+            }
+            
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}finally {
 			database.disconnect();
 		}
 	}

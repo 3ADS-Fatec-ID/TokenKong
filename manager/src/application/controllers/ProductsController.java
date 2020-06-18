@@ -3,9 +3,9 @@ package application.controllers;
 import java.io.File;
 import java.util.ArrayList;
 
+import application.Dialog;
 import application.Main;
 import application.DAO.ProductDAO;
-import application.models.Dialog;
 import application.models.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -25,7 +25,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class ProductsController extends Dialog{
+public class ProductsController{
 	
 	public BrandDialogController brandDialogController;
 	public CategoryDialogController categoryDialogController;
@@ -41,10 +41,16 @@ public class ProductsController extends Dialog{
 	@FXML
 	public void initialize() {
 		
-		this.go_back.setOnMouseClicked(this.goBack());
-		this.brandButton.setOnAction(this.openBrandDialog());
-		this.categoryButton.setOnAction(this.openCategoryDialog());
-		scroller.viewportBoundsProperty().addListener(new ChangeListener<Bounds>() {
+		go_back.setOnMouseClicked( goBack() );
+		brandButton.setOnAction( openBrandDialog() );
+		categoryButton.setOnAction( openCategoryDialog() );
+		scroller.viewportBoundsProperty().addListener( onScrollerDimensionsChange() );
+		
+		loadProducts();
+	}
+	
+	private ChangeListener<Bounds> onScrollerDimensionsChange() {
+		ChangeListener<Bounds> listener = new ChangeListener<Bounds>() {
             @Override
             public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
             	scroller_content.setPrefWidth(bounds.getWidth());
@@ -53,9 +59,9 @@ public class ProductsController extends Dialog{
             	Parent parent2 = (Parent)parent.getChildrenUnmodifiable().get(0);
             	parent2.setStyle("-fx-background-color:transparent");
             }
-        });
-		
-		this.loadProducts();
+        };
+        
+        return listener;
 	}
 	
 	private EventHandler<MouseEvent> goBack() {
@@ -75,6 +81,9 @@ public class ProductsController extends Dialog{
 					}
 				}catch(Exception e) {
 					System.out.println(e.getMessage());
+
+					//show error message
+					
 				}
 			}
 		};
@@ -91,7 +100,9 @@ public class ProductsController extends Dialog{
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
+			
 			//show error message
+			
 		}
 	}
 	
@@ -102,11 +113,12 @@ public class ProductsController extends Dialog{
 		try {
 			ProductCardController productCardController = new ProductCardController();
 			productCardController.setProduct(product);
-			this.products.add(product);
-			
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/components/ProductCardComponent.fxml"));
 			fxmlLoader.setController(productCardController);
 			node = fxmlLoader.load();
+			
+			products.add(product);
+			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -119,25 +131,22 @@ public class ProductsController extends Dialog{
 			@Override 
 			public void handle(ActionEvent event) {
 				try {
-					
-					brandDialogController = new BrandDialogController();
-					
-					VBox content = null;
-	
+										
 					FXMLLoader loader = new FXMLLoader();
+					brandDialogController = new BrandDialogController();
 					loader.setController(brandDialogController);
-					File file = new File("src\\application\\views\\dialogs\\BrandDialog.fxml");
-					
+					File file = new File("src\\application\\views\\components\\dialogs\\BrandDialog.fxml");
 					loader.setLocation(file.toURI().toURL());
-					
-					content = (VBox)loader.load();
+					VBox content = (VBox)loader.load();
 					HBox.setHgrow(content, Priority.ALWAYS);
+					
 					brandDialogController.closeDialog.setId("closeDialog");
-					brandDialogController.closeDialog.setOnMouseClicked(closeDialog());
-					setDialog(event, content);
+					brandDialogController.closeDialog.setOnMouseClicked(Dialog.closeDialog());
+					
+					Dialog.setDialog(event, content);
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 					
 					//show dialog load error;
 					
@@ -153,25 +162,21 @@ public class ProductsController extends Dialog{
 			@Override 
 			public void handle(ActionEvent event) {
 				try {
-					
-					categoryDialogController = new CategoryDialogController();
-					
-					VBox content = null;
-	
 					FXMLLoader loader = new FXMLLoader();
+					categoryDialogController = new CategoryDialogController();
 					loader.setController(categoryDialogController);
-					File file = new File("src\\application\\views\\dialogs\\CategoryDialog.fxml");
-					
+					File file = new File("src\\application\\views\\components\\dialogs\\CategoryDialog.fxml");
 					loader.setLocation(file.toURI().toURL());
-					
-					content = (VBox)loader.load();
+					VBox content = (VBox)loader.load();
 					HBox.setHgrow(content, Priority.ALWAYS);
+					
 					categoryDialogController.closeDialog.setId("closeDialog");
-					categoryDialogController.closeDialog.setOnMouseClicked(closeDialog());
-					setDialog(event, content);
+					categoryDialogController.closeDialog.setOnMouseClicked(Dialog.closeDialog());
+					
+					Dialog.setDialog(event, content);
 					
 				} catch (Exception e) {
-					e.printStackTrace();
+					System.out.println(e.getMessage());
 					
 					//show dialog load error;
 					

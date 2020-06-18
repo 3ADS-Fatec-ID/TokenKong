@@ -20,7 +20,7 @@
                <children>
                   <ImageView fx:id="closeDialog1" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../assets/icons/dark/view-grid-outline.png" />
+                        <Image url="@../../../assets/icons/dark/view-grid-outline.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -35,7 +35,7 @@
             </HBox>
             <ImageView fx:id="closeDialog" fitHeight="18.0" fitWidth="18.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../assets/icons/dark/close-thick.png" />
+                  <Image url="@../../../assets/icons/dark/close-thick.png" />
                </image>
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -48,7 +48,7 @@
       </HBox>
       <ScrollPane hbarPolicy="NEVER" maxHeight="400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0">
          <content>
-            <VBox nodeOrientation="LEFT_TO_RIGHT" prefWidth="398.0">
+            <VBox fx:id="content" nodeOrientation="LEFT_TO_RIGHT" prefWidth="398.0">
                <children>
                   <Label text="Category Dialog works!" />
                </children>
@@ -63,8 +63,8 @@
       </ScrollPane>
    </children>
    <stylesheets>
-      <URL value="@stylesheets/BaseDialog.css" />
-      <URL value="@../screens/stylesheets/Page.css" />
+      <URL value="@../stylesheets/BaseDialog.css" />
+      <URL value="@../../screens/stylesheets/Page.css" />
    </stylesheets>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

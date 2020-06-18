@@ -3,6 +3,7 @@ package application.controllers;
 import java.util.ArrayList;
 
 import application.Main;
+import application.Snack;
 import application.DAO.ProductDAO;
 import application.models.Product;
 import application.models.ProductImage;
@@ -11,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -100,14 +103,14 @@ public class ProductFormController{
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override 
 			public void handle(ActionEvent event) {
-				updateProduct();
+				updateProduct(event);
 			}
 		};
 		
 		return eventHandler;
 	}
 	
-	private void updateProduct() {
+	private void updateProduct(ActionEvent event) {
 		try {
 			Product product = new Product();
 			product.setId(this.product.getId());
@@ -119,12 +122,12 @@ public class ProductFormController{
 		
 			this.product = ProductDAO.update(product);
 			
-			if(this.product.equals(null)) {
-				setInitialFormValues();
-				Thread.sleep(5000);
-				imagePickerController.setImages(this.product.getImages());
+			if(!this.product.equals(null)) {
 				
-				//show success message
+				setInitialFormValues();
+				imagePickerController.setImages(this.product.getImages());
+				Scene scene = ((Node)event.getSource()).getScene();
+				Snack.showSnack(scene, "Success", "The product was updated with success!", "success", 5000);
 				
 			}else {
 				//show success message with error to reload user
@@ -132,7 +135,8 @@ public class ProductFormController{
 			
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
-			//show error message
+			Scene scene = ((Node)event.getSource()).getScene();
+			Snack.showSnack(scene, "An error has occurred", "Could not save product data", "error", 5000);
 		}
 	}
 	

@@ -158,6 +158,7 @@ public class ProductDAO {
 		}
 		
 		try {
+			Thread.sleep(5000);
 			product = getOne(product.getId());
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -185,12 +186,16 @@ public class ProductDAO {
 				}else {
 					queryInsert += ",( ?, ? ) ";							
 				}
-				
-				pstmtInsert = connection.prepareStatement(queryInsert);
-				pstmtInsert.setInt( 1 , images.get(i).getImageId() );
-				pstmtInsert.setInt( 2 , images.get(i).getProductId() );
 			}
 			
+			int parameterIndex = 1;
+			pstmtInsert = connection.prepareStatement(queryInsert);
+			for(int i = 0; i < images.size(); i++) {
+				pstmtInsert.setInt(parameterIndex, images.get(i).getImageId() );
+				parameterIndex += 1;
+				pstmtInsert.setInt(parameterIndex , images.get(i).getProductId() );
+				parameterIndex += 1;
+			}
 			pstmtInsert.execute();
 			
 		}catch(Exception e) {
@@ -213,6 +218,11 @@ public class ProductDAO {
 			queryRemove += "id IN ( ";
 			
 			for(int i = 0; i < images.size(); i++) {
+				try {
+					images.get(i).remove();
+				}catch(Exception e) {
+					System.out.println(e.getMessage());
+				}
 				if(i > 0) queryRemove += ", ";
 				queryRemove += "?";
 			}

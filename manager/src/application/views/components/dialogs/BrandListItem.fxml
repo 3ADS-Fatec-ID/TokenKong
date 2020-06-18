@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="brandListItem" alignment="CENTER_LEFT" style="-fx-border-color: #eee; -fx-border-insets: 0 0 1 0; -fx-border-width: 0 0 1 0;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="removeButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/icons/dark/trash-can-outline.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets left="16.0" />
+         </HBox.margin>
+      </ImageView>
+      <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
+         <children>
+            <Label fx:id="name" text="Undefined">
+               <HBox.margin>
+                  <Insets left="16.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor></Label>
+            <TextField fx:id="brandTextField" promptText="Brand name:" style="-fx-border-color: #eee; -fx-border-width: 1 1 1 1; -fx-max-height: 20; -fx-padding: 0 8 0 7;" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets left="7.0" right="16.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </HBox>
+      <ImageView fx:id="cancelButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/icons/dark/close-thick.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <HBox.margin>
+            <Insets right="8.0" />
+         </HBox.margin>
+      </ImageView>
+      <ImageView fx:id="saveButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/icons/dark/check-bold.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="editButton" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../assets/icons/dark/pencil-outline.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+   </children>
+   <padding>
+      <Insets bottom="4.0" right="16.0" top="4.0" />
+   </padding>
+</HBox>

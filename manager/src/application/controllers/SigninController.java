@@ -2,6 +2,9 @@ package application.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import application.Dialog;
+import application.Snack;
 import application.models.User;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -80,6 +83,9 @@ public class SigninController implements Initializable{
 			DrawerController drawerController = new DrawerController();
 			fxmlLoader.setController(drawerController);
 			Parent drawer = fxmlLoader.load();
+			
+			Dialog.initializeDialog(drawerController.composition);
+			Snack.initializeSnack(drawerController.composition);
 			
 			Scene scene = new Scene(drawer);
 			

@@ -1,4 +1,4 @@
-package application.models;
+package application;
 
 import java.io.File;
 
@@ -15,53 +15,57 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 public class Dialog {
+	
+	public static void initializeDialog(StackPane composition) {
+		
+		try {
+			File file = new File("src\\application\\views\\components\\stylesheets\\BaseDialog.css");
+			HBox background = new HBox();
+			background.setCursor(Cursor.HAND);
+			background.getStylesheets().add(file.toURI().toURL().toString());
+			background.getStyleClass().add("background");
+			HBox.setHgrow(background, Priority.ALWAYS);
+			VBox.setVgrow(background, Priority.ALWAYS);
+			background.setAlignment(Pos.CENTER);
+			
+			//create dialog content area
+			HBox h = new HBox();
+			HBox.setHgrow(h, Priority.ALWAYS);
+			h.setPadding(new Insets(16));
+			VBox v = new VBox();
+			v.setAlignment(Pos.CENTER);
+			v.getChildren().add(h);
+			background.getChildren().add(v);
+			background.setId("dialogBackground");
+			v.setId("dialogVAlignment");
+			h.setId("dialogHAlignment");
+			background.setOnMouseClicked(closeDialog());
+			background.setId("dialogBackground");
+			background.setVisible(false);
+			
+			composition.getChildren().add(2, background);
+			
+		}catch( Exception e ) {
+			System.out.println( e.getMessage() );
+		}
+	}
+	
 	public static void setDialog ( Event event, VBox content ) throws Exception {
 		try {
 			//add dialog to screen
 			Node source = (Node)event.getSource();
 			Scene scene = source.getScene();
 			StackPane composition = (StackPane)scene.getRoot();
-			
-			//content.getProperties().get(key)
-			
-			if( composition.getChildren().size() <= 2 ) {
-				//create background dialog
-				File file = new File("src\\application\\views\\dialogs\\stylesheets\\BaseDialog.css");
-				HBox background = new HBox();
-				background.setCursor(Cursor.HAND);
-				background.getStylesheets().add(file.toURI().toURL().toString());
-				background.getStyleClass().add("background");
-				HBox.setHgrow(background, Priority.ALWAYS);
-				VBox.setVgrow(background, Priority.ALWAYS);
-				background.setAlignment(Pos.CENTER);
-				
-				//create dialog context content area
-				HBox h = new HBox();
-				HBox.setHgrow(h, Priority.ALWAYS);
-				h.setPadding(new Insets(16));
+
+			HBox background = (HBox)composition.getChildren().get(2);
+			VBox v = (VBox)background.getChildren().get(0);
+			HBox h = (HBox)v.getChildren().get(0);
+			if(h.getChildren().size() == 0) {
 				h.getChildren().add(content);
-				VBox v = new VBox();
-				v.setAlignment(Pos.CENTER);
-				v.getChildren().add(h);
-				background.getChildren().add(v);
-				
-				background.setId("dialogBackground");
-				v.setId("dialogVAlignment");
-				h.setId("dialogHAlignment");
-				background.setId("dialogBackground");
-				
-				
-				background.setOnMouseClicked(closeDialog());
-				
-				composition.getChildren().add(2, background);	
-				
-			}else {
-				HBox background = (HBox)composition.getChildren().get(2);
-				VBox v = (VBox)background.getChildren().get(0);
-				HBox h = (HBox)v.getChildren().get(0);
+			}else{
 				h.getChildren().set(0, content);
-				background.setVisible(true);
 			}
+			background.setVisible(true);
 			
 		}catch(Exception e) {
 			throw e;

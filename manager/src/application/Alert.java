@@ -2,7 +2,7 @@ package application;
 
 import java.io.File;
 
-import application.controllers.SnackController;
+import application.controllers.AlertController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,63 +14,63 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
-public class Snack {
+public class Alert {
 	
-	public static void initializeSnack(StackPane composition) {
+	public static void initializeAlert(StackPane composition) {
 		
 		try {
 			
 			FXMLLoader loader = new FXMLLoader();
-			SnackController snackController = new SnackController();
-			loader.setController(snackController);
-			File file = new File("src\\application\\views\\components\\Snack.fxml");
+			AlertController alertController = new AlertController();
+			loader.setController(alertController);
+			File file = new File("src\\application\\views\\components\\Alert.fxml");
 			loader.setLocation(file.toURI().toURL());
-			HBox snack = (HBox)loader.load();
+			HBox alert = (HBox)loader.load();
 			//snack.setVisible(false);
-			composition.getChildren().add(3, snack);
-			StackPane.setAlignment(snack, Pos.BOTTOM_RIGHT);
-			StackPane.setMargin(snack, new Insets(0, 16, 16, 0));
-			snack.setVisible(false);
+			composition.getChildren().add(3, alert);
+			StackPane.setAlignment(alert, Pos.BOTTOM_RIGHT);
+			StackPane.setMargin(alert, new Insets(0, 16, 16, 0));
+			alert.setVisible(false);
 		}catch( Exception e ) {
 			System.out.println( e.getMessage() );
 		}
 	}
 
-	public static void showSnack ( Scene scene, String title, String message, String type, int milliseconds ) {
+	public static void showAlert ( Scene scene, String title, String message, String type, int milliseconds ) {
 		try {
 			StackPane composition = (StackPane)scene.getRoot();
-			HBox snack = (HBox)composition.getChildren().get(3);
+			HBox alert = (HBox)composition.getChildren().get(3);
 			
-			ImageView snackIcon = (ImageView)snack.getChildren().get(0);
-			Label snackTitle = (Label)((VBox)snack.getChildren().get(1)).getChildren().get(0);
-			Label snackMessage =  (Label)((VBox)snack.getChildren().get(1)).getChildren().get(1);
+			ImageView alertIcon = (ImageView)alert.getChildren().get(0);
+			Label alertTitle = (Label)((VBox)alert.getChildren().get(1)).getChildren().get(0);
+			Label alertMessage =  (Label)((VBox)alert.getChildren().get(1)).getChildren().get(1);
 			
 			String iconPath = "";
-			snack.getStyleClass().clear();
+			alert.getStyleClass().clear();
 			if(type.equals("success")) {
 				iconPath = "/application/assets/icons/light/check-bold.png";
-				snack.getStyleClass().add("success");
+				alert.getStyleClass().add("success");
 			}else if(type.equals("error")) {
 				iconPath = "/application/assets/icons/light/close-thick.png";
-				snack.getStyleClass().add("error");
+				alert.getStyleClass().add("error");
 			}else if(type.equals("warning")) {
 				iconPath = "/application/assets/icons/light/alert-outline.png";
-				snack.getStyleClass().add("warning");
+				alert.getStyleClass().add("warning");
 			}else if(type.equals("info")) {
 				iconPath = "/application/assets/icons/light/information-outline.png";
-				snack.getStyleClass().add("info");
+				alert.getStyleClass().add("info");
 			}
 			
 			Image icon = new Image(iconPath);
-			snackIcon.setImage(icon);
-			snackTitle.setText(title);
-			snackMessage.setText(message);
+			alertIcon.setImage(icon);
+			alertTitle.setText(title);
+			alertMessage.setText(message);
 		
 			new Thread(() -> {
 				try {
-					snack.setVisible(true);
+					alert.setVisible(true);
 					Thread.sleep(new Long(milliseconds));
-					snack.setVisible(false);
+					alert.setVisible(false);
 					
 				}catch(Exception e) {
 					System.out.println(e.getMessage());

@@ -3,7 +3,7 @@ package application.controllers;
 import java.util.ArrayList;
 
 import application.Main;
-import application.Snack;
+import application.Alert;
 import application.DAO.ProductDAO;
 import application.models.Product;
 import application.models.ProductImage;
@@ -127,7 +127,7 @@ public class ProductFormController{
 				setInitialFormValues();
 				imagePickerController.setImages(this.product.getImages());
 				Scene scene = ((Node)event.getSource()).getScene();
-				Snack.showSnack(scene, "Success", "The product was updated with success!", "success", 5000);
+				Alert.showAlert(scene, "Success", "The product was updated with success!", "success", 5000);
 				
 			}else {
 				//show success message with error to reload user
@@ -136,7 +136,7 @@ public class ProductFormController{
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
 			Scene scene = ((Node)event.getSource()).getScene();
-			Snack.showSnack(scene, "An error has occurred", "Could not save product data", "error", 5000);
+			Alert.showAlert(scene, "An error has occurred", "Could not save product data", "error", 5000);
 		}
 	}
 	

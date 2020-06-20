@@ -74,7 +74,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
                <styleClass>
-                  <String fx:value="principal_button" />
+                  <String fx:value="simple_button" />
                   <String fx:value="flat_button" />
                </styleClass>
             </Button>

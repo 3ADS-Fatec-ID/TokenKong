@@ -106,7 +106,7 @@ public class BrandDAO {
 		return brand;
 	}
 	
-	public static void remove( Integer id ) throws Exception{
+	public static void delete( Integer id ) throws Exception{
 		
 		DB database = new DB();
 		database.connect();

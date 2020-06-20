@@ -1,6 +1,6 @@
 package application.controllers;
 
-import application.Snack;
+import application.Alert;
 import application.DAO.BrandDAO;
 import application.models.Brand;
 import javafx.event.EventHandler;
@@ -12,8 +12,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
 public class BrandListItemController {
+	
 	private Brand brand = null;
 	private boolean editing = false;
+	
 	@FXML
 	public Label name;
 	@FXML
@@ -96,17 +98,17 @@ public class BrandListItemController {
 					name.setText(this.brand.name);
 					unsetEditMode();
 					
-					Snack.showSnack(brandListItem.getScene(), "Success", "Brand updated with success", "success", 5000);
+					Alert.showAlert(brandListItem.getScene(), "Success", "Brand updated with success", "success", 5000);
 					
 				}catch(Exception e) {
 					System.out.println(e.getMessage());
-					Snack.showSnack(brandListItem.getScene(), "Error", "Was not possible to update the brand", "error", 5000);
+					Alert.showAlert(brandListItem.getScene(), "Error", "Was not possible to update the brand", "error", 5000);
 				}
 			}else {
-				Snack.showSnack(brandListItem.getScene(), "Warning", "There was no update!", "warning", 5000);
+				Alert.showAlert(brandListItem.getScene(), "Warning", "There was no update!", "warning", 5000);
 			}
 		}else {
-			Snack.showSnack(brandListItem.getScene(), "Warning", "There's nothing to save!", "warning", 5000);
+			Alert.showAlert(brandListItem.getScene(), "Warning", "There's nothing to save!", "warning", 5000);
 		}
 	}
 	

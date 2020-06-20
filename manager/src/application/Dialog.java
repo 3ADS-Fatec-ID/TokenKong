@@ -39,7 +39,15 @@ public class Dialog {
 			background.setId("dialogBackground");
 			v.setId("dialogVAlignment");
 			h.setId("dialogHAlignment");
-			background.setOnMouseClicked(closeDialog());
+			
+			background.setOnMouseClicked( new EventHandler<Event>() { 
+				@Override 
+				public void handle(Event event) {
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					close(scene, (Node)event.getTarget());
+				}
+			});
+			
 			background.setId("dialogBackground");
 			background.setVisible(false);
 			
@@ -50,11 +58,9 @@ public class Dialog {
 		}
 	}
 	
-	public static void setDialog ( Event event, VBox content ) throws Exception {
+	public static void show ( Scene scene, VBox content ) throws Exception {
 		try {
 			//add dialog to screen
-			Node source = (Node)event.getSource();
-			Scene scene = source.getScene();
 			StackPane composition = (StackPane)scene.getRoot();
 
 			HBox background = (HBox)composition.getChildren().get(2);
@@ -72,32 +78,23 @@ public class Dialog {
 		}
 	}
 	
-	public static EventHandler<Event> closeDialog(){
-		EventHandler<Event> eventHandler = new EventHandler<Event>() { 
-			@Override 
-			public void handle(Event event) {
-				try {
-					Node source = (Node)event.getSource();
-					Scene scene = source.getScene();
-					StackPane composition = (StackPane)scene.getRoot();
-					HBox background = (HBox)composition.getChildren().get(2);
-					VBox v = (VBox)background.getChildren().get(0);
-					HBox h = (HBox)v.getChildren().get(0);
-					
-					String id = ((Node)event.getTarget()).getId();
-					if(id != null) {
-						if(id == background.getId() || id == v.getId() || id == h.getId() || id.equals("closeDialog")) {
-							background.setVisible(false);						
-						}						
-					}
-					
-				}catch(Exception e) {
-					System.out.println(e.getMessage());
-					throw e;
-				}
+	public static void close(Scene scene, Node target){
+		try {
+			StackPane composition = (StackPane)scene.getRoot();
+			HBox background = (HBox)composition.getChildren().get(2);
+			VBox v = (VBox)background.getChildren().get(0);
+			HBox h = (HBox)v.getChildren().get(0);
+			
+			String id = target.getId();
+			if(id != null) {
+				if(id == background.getId() || id == v.getId() || id == h.getId() || id.equals("closeDialog")) {
+					background.setVisible(false);						
+				}						
 			}
-		};
-		
-		return eventHandler;
+			
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			throw e;
+		}
 	}
 }

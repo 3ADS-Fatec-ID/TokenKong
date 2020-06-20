@@ -136,7 +136,7 @@
                         </ImageView>
                      </graphic>
                      <styleClass>
-                        <String fx:value="principal_button" />
+                        <String fx:value="simple_button" />
                         <String fx:value="strocked_button" />
                      </styleClass>
                      <font>
@@ -158,7 +158,7 @@
                         </ImageView>
                      </graphic>
                      <styleClass>
-                        <String fx:value="principal_button" />
+                        <String fx:value="simple_button" />
                         <String fx:value="strocked_button" />
                      </styleClass>
                      <font>
@@ -182,7 +182,7 @@
                   </ImageView>
                </graphic>
                <styleClass>
-                  <String fx:value="principal_button" />
+                  <String fx:value="simple_button" />
                   <String fx:value="strocked_button" />
                </styleClass>
                <font>

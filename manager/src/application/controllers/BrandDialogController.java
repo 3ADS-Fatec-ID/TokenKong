@@ -2,7 +2,7 @@ package application.controllers;
 
 import java.util.ArrayList;
 
-import application.Snack;
+import application.Alert;
 import application.DAO.BrandDAO;
 import application.models.Brand;
 import javafx.event.ActionEvent;
@@ -44,7 +44,7 @@ public class BrandDialogController {
 			}
 		}catch( Exception e ) {
 			System.out.println(e.getMessage());
-			Snack.showSnack(closeDialog.getScene(), "Error", "Was not possible to list the brands", "error", 5000);
+			Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to list the brands", "error", 5000);
 		}
 	}
 	
@@ -74,13 +74,13 @@ public class BrandDialogController {
 			@Override 
 			public void handle(MouseEvent event) {
 				try {
-					BrandDAO.remove(brand.id);
+					BrandDAO.delete(brand.id);
 					loadBrands();
 					brandName.clear();
-					Snack.showSnack(closeDialog.getScene(), "Success", "Brand deleted with success", "success", 5000);
+					Alert.showAlert(closeDialog.getScene(), "Success", "Brand deleted with success", "success", 5000);
 				}catch(Exception e) {
 					System.out.println(e.getMessage());
-					Snack.showSnack(closeDialog.getScene(), "Error", "Was not possible to delete the brand", "error", 5000);
+					Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to delete the brand", "error", 5000);
 				}
 			}
 		};
@@ -98,13 +98,13 @@ public class BrandDialogController {
 						brand = BrandDAO.insert(brand);
 						loadBrands();
 						brandName.clear();
-						Snack.showSnack(closeDialog.getScene(), "Success", "Brand created with success", "success", 5000);
+						Alert.showAlert(closeDialog.getScene(), "Success", "Brand created with success", "success", 5000);
 					}catch(Exception e) {
 						System.out.println(e.getMessage());
-						Snack.showSnack(closeDialog.getScene(), "Error", "Was not possible to create a new brand", "error", 5000);
+						Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to create a new brand", "error", 5000);
 					}
 				}else {
-					Snack.showSnack(closeDialog.getScene(), "There's nothing to save!", "Please, inform the name of the new brand.", "warning", 5000);
+					Alert.showAlert(closeDialog.getScene(), "There's nothing to save!", "Please, inform the name of the new brand.", "warning", 5000);
 				}
 			}
 		};

@@ -3,6 +3,8 @@ package application.controllers;
 import java.io.File;
 import java.util.ArrayList;
 
+//import application.Confirm;
+//import application.Confirm.ConfirmCallback;
 import application.Dialog;
 import application.Main;
 import application.DAO.ProductDAO;
@@ -10,12 +12,14 @@ import application.models.Product;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
@@ -141,14 +145,21 @@ public class ProductsController{
 					HBox.setHgrow(content, Priority.ALWAYS);
 					
 					brandDialogController.closeDialog.setId("closeDialog");
-					brandDialogController.closeDialog.setOnMouseClicked(Dialog.closeDialog());
+					brandDialogController.closeDialog.setOnMouseClicked(new EventHandler<Event>() { 
+						@Override 
+						public void handle(Event event) {
+							Scene scene = (Scene)((Node)event.getSource()).getScene();
+							Dialog.close(scene, (Node)event.getTarget());
+						}
+					});
 					
-					Dialog.setDialog(event, content);
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Dialog.show(scene, content);
 					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					
-					//show dialog load error;
+					//show alert load error;
 					
 				}
 			}
@@ -171,14 +182,35 @@ public class ProductsController{
 					HBox.setHgrow(content, Priority.ALWAYS);
 					
 					categoryDialogController.closeDialog.setId("closeDialog");
-					categoryDialogController.closeDialog.setOnMouseClicked(Dialog.closeDialog());
+					categoryDialogController.closeDialog.setOnMouseClicked(new EventHandler<Event>() { 
+						@Override 
+						public void handle(Event event) {
+							Scene scene = (Scene)((Node)event.getSource()).getScene();
+							Dialog.close(scene, (Node)event.getTarget());
+						}
+					});
 					
-					Dialog.setDialog(event, content);
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Dialog.show(scene, content);
 					
+					//Confirm test
+					/*Confirm.ConfirmCallback callback = new ConfirmCallback(){
+						public EventHandler<ActionEvent>confirm(){
+							EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+								@Override
+								public void handle( ActionEvent event) {
+									System.out.println("lalaa");
+								}
+							};
+							return eventHandler;
+						}
+					};
+					Confirm.show(((Node)event.getSource()).getScene(), "AAAAAA", "aaaaaa", "success", true, callback);
+					*/
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					
-					//show dialog load error;
+					//show alert load error;
 					
 				}
 			}

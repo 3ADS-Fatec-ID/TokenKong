@@ -258,13 +258,14 @@ public class ProductDAO {
 					product.setPrice(resultSet.getDouble("price"));
 					product.setQuantity(resultSet.getInt("quantity"));					
 				}
-				
-				ProductImage productImage = new ProductImage("/application/assets/images/products/"+resultSet.getString("image"));
-				productImage.setName(resultSet.getString("image"));
-				productImage.setImageId(resultSet.getInt("image_id"));
-				productImage.setProductId(resultSet.getInt("id"));
-				productImage.setId(resultSet.getInt("product_image_id"));
-				productImages.add(productImage);
+				if(resultSet.getString("image") != null) {
+					ProductImage productImage = new ProductImage("/application/assets/images/products/"+resultSet.getString("image"));
+					productImage.setName(resultSet.getString("image"));
+					productImage.setImageId(resultSet.getInt("image_id"));
+					productImage.setProductId(resultSet.getInt("id"));
+					productImage.setId(resultSet.getInt("product_image_id"));
+					productImages.add(productImage);
+				}
 			}
 			product.setImages(productImages);
 		}
@@ -285,7 +286,6 @@ public class ProductDAO {
 				product.setQuantity(resultSet.getInt("quantity"));
 				
 				if(resultSet.getString("image") != null) {
-					
 					File temp = new File("src\\application\\assets\\images\\products\\"+resultSet.getString("image"));
 
 	                temp.toURI().toString();

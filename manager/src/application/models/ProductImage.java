@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import javax.imageio.ImageIO;
 
-import application.UtilsMethods;
+import application.Utils;
 import application.DAO.DB;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -65,7 +65,7 @@ public class ProductImage extends Image{
 		
 		String ext = this.getName().split("\\.")[1];
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		String imageName = UtilsMethods.generateRandomString(6) + "_" + timestamp.getTime();
+		String imageName = Utils.generateRandomString(6) + "_" + timestamp.getTime();
 		this.setName(imageName+"."+ext);
 		try {
 			String path = Paths.get("").toAbsolutePath().toString();

@@ -1,6 +1,6 @@
 package application;
 
-import application.controllers.SigninController;
+import application.screens.controllers.SigninController;
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -22,7 +22,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) {
 		try {
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/views/screens/SigninView.fxml"));
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/screens/SigninView.fxml"));
 			SigninController signinController = new SigninController();
 			fxmlLoader.setController(signinController);
 			Parent root = fxmlLoader.load();

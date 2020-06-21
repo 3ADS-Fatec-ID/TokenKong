@@ -5,8 +5,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.models.User;
-import application.models.UserRole;
-import application.models.UserStatus;
+import application.models.User.Role;
+import application.models.User.Status;
 
 public class UserDAO {
 	
@@ -71,11 +71,11 @@ public class UserDAO {
 				user.setName( resultSet.getString("name") );
 				user.setId( resultSet.getInt("id") );
 				user.setPassword( resultSet.getString("password") );
-				user.setRole(new UserRole(
+				user.setRole(new Role(
 					resultSet.getInt("roleId"),
 					resultSet.getString("roleName")
 				));
-				user.setStatus(new UserStatus(
+				user.setStatus(new Status(
 					resultSet.getInt("statusId"),
 					resultSet.getString("statusName")
 				));

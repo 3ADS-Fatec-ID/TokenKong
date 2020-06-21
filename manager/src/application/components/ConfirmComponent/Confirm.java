@@ -49,7 +49,7 @@ public class Confirm {
 			
 			Button cancelButton = (Button)((HBox)confirm.getChildren().get(1)).getChildren().get(0);
 			Button confirmButton = (Button)((HBox)confirm.getChildren().get(1)).getChildren().get(1);
-			confirmButton.setOnAction(callback.confirm());
+			confirmButton.setOnAction( callback.confirm() );
 			cancelButton.setOnAction( new EventHandler<ActionEvent>() {
 				@Override 
 				public void handle(ActionEvent event) {
@@ -62,21 +62,26 @@ public class Confirm {
 			if(type.equals("success")) {
 				iconPath = "/application/assets/icons/light/check-bold.png";
 				confirm.getStyleClass().add("success");
+				confirmButton.getStyleClass().add("text_success");
 			}else if(type.equals("error")) {
 				iconPath = "/application/assets/icons/light/close-thick.png";
 				confirm.getStyleClass().add("error");
+				confirmButton.getStyleClass().add("text_error");
 			}else if(type.equals("warning")) {
 				iconPath = "/application/assets/icons/light/alert-outline.png";
 				confirm.getStyleClass().add("warning");
+				confirmButton.getStyleClass().add("text_warning");
 			}else if(type.equals("info")) {
 				iconPath = "/application/assets/icons/light/information-outline.png";
 				confirm.getStyleClass().add("info");
+				confirmButton.getStyleClass().add("text_info");
 			}
 			
 			Image icon = new Image(iconPath);
 			confirmIcon.setImage(icon);
 			confirmTitle.setText(title);
 			confirmMessage.setText(message);
+			cancelButton.setVisible(cancelable);
 			
 			confirm.setVisible(true);					
 

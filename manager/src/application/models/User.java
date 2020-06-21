@@ -5,8 +5,8 @@ import application.DAO.UserDAO;
 public class User {
 	private Integer id;
 	private String name;
-	private UserRole role;
-	private UserStatus status;
+	private Role role;
+	private Status status;
 	private String email;
 	private String password;
 	
@@ -28,19 +28,19 @@ public class User {
 		this.name = name;
 	}
 
-	public UserRole getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(UserRole role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 
-	public UserStatus getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
-	public void setStatus(UserStatus status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 
@@ -72,5 +72,24 @@ public class User {
 		
 		return result;
 	}
-
+	
+	public static class Role {
+		public Integer id;
+		public String name;
+		
+		public Role(Integer id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+	}
+	
+	public static class Status {
+		public Integer id;
+		public String name;
+		
+		public Status(Integer id, String name) {
+			this.id = id;
+			this.name = name;
+		}
+	}
 }

@@ -3,6 +3,8 @@ package application.components.DialogComponent.BrandDialogComponent;
 import java.util.ArrayList;
 
 import application.components.AlertComponent.*;
+import application.components.ConfirmComponent.Confirm;
+import application.components.ConfirmComponent.Confirm.ConfirmCallback;
 import application.DAO.BrandDAO;
 import application.models.Brand;
 import javafx.event.ActionEvent;
@@ -10,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -26,10 +29,8 @@ public class BrandDialogController {
 	@FXML public Button add_brand;
 	@FXML public VBox content;
 	
-	@FXML
-	public void initialize() {
+	@FXML public void initialize() {
 		loadBrands();
-		
 		add_brand.setOnAction(submit());
 	}
 	
@@ -73,15 +74,31 @@ public class BrandDialogController {
 		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
 			@Override 
 			public void handle(MouseEvent event) {
-				try {
-					BrandDAO.delete(brand.id);
-					loadBrands();
-					brandName.clear();
-					Alert.showAlert(closeDialog.getScene(), "Success", "Brand deleted with success", "success", 5000);
-				}catch(Exception e) {
-					System.out.println(e.getMessage());
-					Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to delete the brand", "error", 5000);
-				}
+				
+				Scene scene = ((Node)event.getSource()).getScene();
+				
+				ConfirmCallback callback = new ConfirmCallback() {
+					public EventHandler<ActionEvent>confirm(){
+						EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
+							@Override
+							public void handle( ActionEvent event) {
+								try {
+									Confirm.close(scene);
+									BrandDAO.delete(brand.id);
+									loadBrands();
+									brandName.clear();
+									Alert.showAlert(closeDialog.getScene(), "Success", "Brand deleted with success", "success", 5000);
+								}catch(Exception e) {
+									System.out.println(e.getMessage());
+									Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to delete the brand", "error", 5000);
+								}
+							}
+						};
+						return eventHandler;
+					}
+				};
+				
+				Confirm.show(scene, "Warning", "Are you shure that you realy want to delete this brand?", "warning", true, callback);
 			}
 		};
 		
@@ -111,5 +128,4 @@ public class BrandDialogController {
 		
 		return eventHandler;
 	}
-	
 }

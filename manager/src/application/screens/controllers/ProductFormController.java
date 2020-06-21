@@ -7,7 +7,7 @@ import application.components.AlertComponent.*;
 import application.components.ImagePickerComponent.ImagePickerController;
 import application.DAO.ProductDAO;
 import application.models.Product;
-import application.models.ProductImage;
+import application.models.Product.ProductImage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

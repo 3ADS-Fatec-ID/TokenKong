@@ -2,6 +2,11 @@
 	-fx-background-radius: 4;
 	-fx-border-radius: 4;
 }
+.confirm_button{
+	-fx-background-color:#fff;
+	-fx-border-color:#fff;
+	-fx-text-fill:#f00;
+}
 .success{
 	-fx-background-color: #9d6;
 }

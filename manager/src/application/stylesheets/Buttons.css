@@ -1,6 +1,12 @@
 .simple_button{
 	-fx-pref-height:28;
 	-fx-background-radius:14;
+	-fx-padding: 0 10 0 8;
+	-fx-border-radius:14;
+}
+.primary_button{
+	-fx-pref-height:28;
+	-fx-background-radius:14;
 	-fx-background-color: #84a9ac;
 	-fx-text-fill: #fff;
 	-fx-padding: 0 10 0 8;
@@ -8,14 +14,34 @@
 }
 .strocked_button{
 	-fx-text-fill: #84a9ac;
-	-fx-background-color: #fff;
+	-fx-background-color: transparent;
 	-fx-border-width: 1;
 	-fx-border-color: #84a9ac;
+}
+.strocked_light_button{
+	-fx-text-fill: #fff;
+	-fx-background-color: transparent;
+	-fx-border-width: 1;
+	-fx-border-color: #fff;
 }
 .flat_button{
 	-fx-text-fill: #84a9ac;
 	-fx-background-color: #fff;
 }
+
+.text_success{
+	-fx-text-fill: #9d6;
+}
+.text_error{
+	-fx-text-fill: #f44;
+}
+.text_warning{
+	-fx-text-fill: #ffb34f;
+}
+.text_info{
+	-fx-text-fill: #79f;
+}
+
 .cancel_button{
 	-fx-pref-height:28;
 	-fx-background-radius:14;

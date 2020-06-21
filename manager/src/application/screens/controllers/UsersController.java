@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import application.Main;
 import application.DAO.DB;
 import application.models.User;
-import application.models.UserRole;
-import application.models.UserStatus;
+import application.models.User.Role;
+import application.models.User.Status;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -94,11 +94,11 @@ public class UsersController {
 							user.setId(resultSet.getInt("id"));
 							user.setName(resultSet.getString("name"));
 							user.setEmail(resultSet.getString("email"));
-							user.setRole( new UserRole(
+							user.setRole( new Role(
 								resultSet.getInt("role_id"),
 								resultSet.getString("role_name")
 							));
-							user.setStatus( new UserStatus(
+							user.setStatus( new Status(
 								resultSet.getInt("status_id"),
 								resultSet.getString("status_name")
 							));

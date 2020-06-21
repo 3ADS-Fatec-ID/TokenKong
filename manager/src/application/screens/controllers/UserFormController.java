@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import application.Main;
 import application.DAO.DB;
 import application.models.User;
-import application.models.UserRole;
-import application.models.UserStatus;
+import application.models.User.Role;
+import application.models.User.Status;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,8 +31,8 @@ public class UserFormController {
 	private DB database = new DB();
 	private User user = new User();
 	
-	ArrayList<UserStatus> userStatuses = new ArrayList<UserStatus>();
-	ArrayList<UserRole> userRoles = new ArrayList<UserRole>();
+	ArrayList<Status> userStatuses = new ArrayList<Status>();
+	ArrayList<Role> userRoles = new ArrayList<Role>();
 	
 	@FXML 
 	public Button go_back;
@@ -92,7 +92,7 @@ public class UserFormController {
 					if(resultSet != null) {
 						userStatuses.clear();
 						while (resultSet.next()) {
-							UserStatus userStatus = new UserStatus(resultSet.getInt("id"), resultSet.getString("name"));
+							Status userStatus = new Status(resultSet.getInt("id"), resultSet.getString("name"));
 							userStatuses.add(userStatus);
 						}
 					}
@@ -132,7 +132,7 @@ public class UserFormController {
 					if(resultSet != null) {
 						userRoles.clear();
 						while (resultSet.next()) {
-							UserRole userRole = new UserRole(resultSet.getInt("id"), resultSet.getString("name"));
+							Role userRole = new Role(resultSet.getInt("id"), resultSet.getString("name"));
 							userRoles.add(userRole);
 						}
 					}
@@ -159,10 +159,10 @@ public class UserFormController {
 		ObservableList<String> userStatuses = FXCollections.observableArrayList();
 		ObservableList<String> userRoles = FXCollections.observableArrayList();
 		
-		for(UserStatus userStatus : this.userStatuses) {
+		for(Status userStatus : this.userStatuses) {
 			userStatuses.add(userStatus.name);
 		}
-		for(UserRole userRole : this.userRoles) {
+		for(Role userRole : this.userRoles) {
 			userRoles.add(userRole.name);
 		}
 		
@@ -217,12 +217,12 @@ public class UserFormController {
 				Integer statusId = null;
 				Integer roleId = null;
 				
-				for(UserStatus userStatus : userStatuses) {
+				for(Status userStatus : userStatuses) {
 					if(userStatus.name == user_status.getValue()) {
 						statusId = userStatus.id;
 					}
 				}
-				for(UserRole userRole : userRoles) {
+				for(Role userRole : userRoles) {
 					if(userRole.name == user_role.getValue()) {
 						roleId = userRole.id;
 					}

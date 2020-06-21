@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import application.models.Product;
-import application.models.ProductImage;
+import application.models.Product.ProductImage;
 
 public class ProductDAO {
 	

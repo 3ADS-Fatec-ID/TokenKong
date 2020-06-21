@@ -6,8 +6,6 @@ import java.util.ArrayList;
 import application.Main;
 import application.DAO.ProductDAO;
 import application.components.DialogComponent.Dialog;
-import application.components.ConfirmComponent.Confirm;
-import application.components.ConfirmComponent.Confirm.ConfirmCallback;
 import application.components.DialogComponent.BrandDialogComponent.BrandDialogController;
 import application.components.DialogComponent.CategoryDialogComponent.CategoryDialogController;
 import application.components.ProductCardComponent.ProductCardController;
@@ -193,22 +191,6 @@ public class ProductsController{
 						}
 					});
 					
-					Scene scene = (Scene)((Node)event.getSource()).getScene();
-					Dialog.show(scene, content);
-					
-					//Confirm test
-					Confirm.ConfirmCallback callback = new ConfirmCallback(){
-						public EventHandler<ActionEvent>confirm(){
-							EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
-								@Override
-								public void handle( ActionEvent event) {
-									System.out.println("lalaa");
-								}
-							};
-							return eventHandler;
-						}
-					};
-					Confirm.show(((Node)event.getSource()).getScene(), "AAAAAA", "aaaaaa", "success", true, callback);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					

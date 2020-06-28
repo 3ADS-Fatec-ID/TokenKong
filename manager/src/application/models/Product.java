@@ -20,6 +20,8 @@ public class Product {
 	private Integer id = null;
 	private Double price = null;
 	private Integer quantity = null;
+	private Category category = new Category(null, null);
+	private Brand brand = new Brand(null, null);
 	private String name = null;
 	private String description = null;
 	private ArrayList<ProductImage> images = new ArrayList<ProductImage>();
@@ -33,6 +35,18 @@ public class Product {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+	public Brand getBrand() {
+		return brand;
+	}
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 	public Double getPrice() {
 		return price;

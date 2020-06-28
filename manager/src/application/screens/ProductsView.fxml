@@ -173,7 +173,7 @@
                   </Button>
                </children>
             </HBox>
-            <Button fx:id="add_product" mnemonicParsing="false" text="New product">
+            <Button fx:id="productButton" mnemonicParsing="false" text="New product">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

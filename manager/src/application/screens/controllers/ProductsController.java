@@ -8,6 +8,7 @@ import application.DAO.ProductDAO;
 import application.components.DialogComponent.Dialog;
 import application.components.DialogComponent.BrandDialogComponent.BrandDialogController;
 import application.components.DialogComponent.CategoryDialogComponent.CategoryDialogController;
+import application.components.DialogComponent.ProductFormDialogComponent.ProductFormDialogController;
 import application.components.ProductCardComponent.ProductCardController;
 import application.models.Product;
 import javafx.beans.value.ChangeListener;
@@ -34,6 +35,7 @@ public class ProductsController{
 	
 	public BrandDialogController brandDialogController;
 	public CategoryDialogController categoryDialogController;
+	public ProductFormDialogController productFormDialogController;
 	public ArrayList<Product> products = new ArrayList<Product>();
 	
 	@FXML public Button go_back;
@@ -42,6 +44,7 @@ public class ProductsController{
 	@FXML public VBox scroller_content;
 	@FXML public Button brandButton;
 	@FXML public Button categoryButton;
+	@FXML public Button productButton;
 
 	@FXML
 	public void initialize() {
@@ -49,59 +52,20 @@ public class ProductsController{
 		go_back.setOnMouseClicked( goBack() );
 		brandButton.setOnAction( openBrandDialog() );
 		categoryButton.setOnAction( openCategoryDialog() );
+		productButton.setOnAction( openProductFormDialog(this) );
 		scroller.viewportBoundsProperty().addListener( onScrollerDimensionsChange() );
 		
 		loadProducts();
 	}
 	
-	private ChangeListener<Bounds> onScrollerDimensionsChange() {
-		ChangeListener<Bounds> listener = new ChangeListener<Bounds>() {
-            @Override
-            public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
-            	scroller_content.setPrefWidth(bounds.getWidth());
-            	Parent parent = (Parent)scroller_content.getChildren().get(0);
-            	parent.setStyle("-fx-background-color:transparent");
-            	Parent parent2 = (Parent)parent.getChildrenUnmodifiable().get(0);
-            	parent2.setStyle("-fx-background-color:transparent");
-            }
-        };
-        
-        return listener;
-	}
-	
-	private EventHandler<MouseEvent> goBack() {
-		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
-			@Override 
-			public void handle(MouseEvent event) {
-				HBox pagesParent = (HBox)Main.getPagesParent(event);
-				
-				try {
-					VBox page = FXMLLoader.load(getClass().getResource("/application/screens/HomeView.fxml"));
-					HBox.setHgrow(page, Priority.ALWAYS);
-					
-					if(pagesParent.getChildren().isEmpty()) {
-						pagesParent.getChildren().add(page);
-					}else {
-						pagesParent.getChildren().set(0, page);			
-					}
-				}catch(Exception e) {
-					System.out.println(e.getMessage());
-
-					//show error message
-					
-				}
-			}
-		};
-		
-		return eventHandler;
-	}
-	
-	private void loadProducts() {
+	public void loadProducts() {
 		try {
 			ArrayList<Product> products = ProductDAO.getAll();
+			products_grid.getChildren().clear();
 			for(Product product: products){
-				Node userCard = this.createCardComponent(product);
-				products_grid.getChildren().add(userCard);			
+				Node userCard = createCardComponent(product);
+				if(userCard != null)
+					products_grid.getChildren().add(userCard);			
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());
@@ -117,7 +81,8 @@ public class ProductsController{
 		
 		try {
 			ProductCardController productCardController = new ProductCardController();
-			productCardController.setProduct(product);
+			productCardController.productsController = this;
+			productCardController.setProduct(product); 
 			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/components/ProductCardComponent/ProductCardComponent.fxml"));
 			fxmlLoader.setController(productCardController);
 			node = fxmlLoader.load();
@@ -169,6 +134,36 @@ public class ProductsController{
 		return eventHandler;
 	}
 	
+	private EventHandler<ActionEvent> openProductFormDialog(ProductsController productsController) {
+		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
+			@Override 
+			public void handle(ActionEvent event) {
+				try {
+										
+					FXMLLoader loader = new FXMLLoader();
+					productFormDialogController = new ProductFormDialogController();
+					productFormDialogController.productsController = productsController;
+					loader.setController(productFormDialogController);
+					File file = new File("src\\application\\components\\DialogComponent\\ProductFormDialogComponent\\ProductFormDialog.fxml");
+					loader.setLocation(file.toURI().toURL());
+					VBox content = (VBox)loader.load();
+					HBox.setHgrow(content, Priority.ALWAYS);
+					
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Dialog.show(scene, content);
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					
+					//show alert load error;
+					
+				}
+			}
+		};
+		
+		return eventHandler;
+	}
+	
 	private EventHandler<ActionEvent> openCategoryDialog() {
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
 			@Override 
@@ -191,10 +186,55 @@ public class ProductsController{
 						}
 					});
 					
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Dialog.show(scene, content);
+					
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					
 					//show alert load error;
+					
+				}
+			}
+		};
+		
+		return eventHandler;
+	}
+	
+	private ChangeListener<Bounds> onScrollerDimensionsChange() {
+		ChangeListener<Bounds> listener = new ChangeListener<Bounds>() {
+            @Override
+            public void changed(ObservableValue<? extends Bounds> ov, Bounds oldBounds, Bounds bounds) {
+            	scroller_content.setPrefWidth(bounds.getWidth());
+            	Parent parent = (Parent)scroller_content.getChildren().get(0);
+            	parent.setStyle("-fx-background-color:transparent");
+            	Parent parent2 = (Parent)parent.getChildrenUnmodifiable().get(0);
+            	parent2.setStyle("-fx-background-color:transparent");
+            }
+        };
+        
+        return listener;
+	}
+	
+	private EventHandler<MouseEvent> goBack() {
+		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
+			@Override 
+			public void handle(MouseEvent event) {
+				HBox pagesParent = (HBox)Main.getPagesParent(event);
+				
+				try {
+					VBox page = FXMLLoader.load(getClass().getResource("/application/screens/HomeView.fxml"));
+					HBox.setHgrow(page, Priority.ALWAYS);
+					
+					if(pagesParent.getChildren().isEmpty()) {
+						pagesParent.getChildren().add(page);
+					}else {
+						pagesParent.getChildren().set(0, page);			
+					}
+				}catch(Exception e) {
+					System.out.println(e.getMessage());
+
+					//show error message
 					
 				}
 			}

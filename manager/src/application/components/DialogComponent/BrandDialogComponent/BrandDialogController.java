@@ -45,7 +45,7 @@ public class BrandDialogController {
 			}
 		}catch( Exception e ) {
 			System.out.println(e.getMessage());
-			Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to list the brands", "error", 5000);
+			Alert.showAlert(closeDialog.getScene(), "Error", "Could not list brands", "error", 5000);
 		}
 	}
 	
@@ -87,10 +87,10 @@ public class BrandDialogController {
 									BrandDAO.delete(brand.id);
 									loadBrands();
 									brandName.clear();
-									Alert.showAlert(closeDialog.getScene(), "Success", "Brand deleted with success", "success", 5000);
+									Alert.showAlert(closeDialog.getScene(), "Success", "Brand was successfully deleted", "success", 5000);
 								}catch(Exception e) {
 									System.out.println(e.getMessage());
-									Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to delete the brand", "error", 5000);
+									Alert.showAlert(closeDialog.getScene(), "Error", "Could not delete brand", "error", 5000);
 								}
 							}
 						};
@@ -115,13 +115,13 @@ public class BrandDialogController {
 						brand = BrandDAO.insert(brand);
 						loadBrands();
 						brandName.clear();
-						Alert.showAlert(closeDialog.getScene(), "Success", "Brand created with success", "success", 5000);
+						Alert.showAlert(closeDialog.getScene(), "Success", "Brand was successfully created", "success", 5000);
 					}catch(Exception e) {
 						System.out.println(e.getMessage());
-						Alert.showAlert(closeDialog.getScene(), "Error", "Was not possible to create a new brand", "error", 5000);
+						Alert.showAlert(closeDialog.getScene(), "Error", "Couldn't create a new brand", "error", 5000);
 					}
 				}else {
-					Alert.showAlert(closeDialog.getScene(), "There's nothing to save!", "Please, inform the name of the new brand.", "warning", 5000);
+					Alert.showAlert(closeDialog.getScene(), "There's nothing to save!", "Please enter the brand name", "warning", 5000);
 				}
 			}
 		};

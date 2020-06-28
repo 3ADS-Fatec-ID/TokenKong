@@ -21,7 +21,7 @@
          <children>
             <HBox alignment="CENTER_LEFT" HBox.hgrow="ALWAYS">
                <children>
-                  <ImageView fx:id="closeDialog1" fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="28.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../assets/icons/dark/tag-multiple-outline.png" />
                      </image>
@@ -80,7 +80,7 @@
             </Button>
          </children>
       </HBox>
-      <ScrollPane hbarPolicy="NEVER" maxHeight="400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="400.0">
+      <ScrollPane hbarPolicy="NEVER" maxHeight="400.0" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0">
          <content>
             <VBox fx:id="content" nodeOrientation="LEFT_TO_RIGHT" prefWidth="398.0" />
          </content>

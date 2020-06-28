@@ -98,11 +98,11 @@ public class BrandListItemController {
 					name.setText(this.brand.name);
 					unsetEditMode();
 					
-					Alert.showAlert(brandListItem.getScene(), "Success", "Brand updated with success", "success", 5000);
+					Alert.showAlert(brandListItem.getScene(), "Success", "Brand was successfully updated", "success", 5000);
 					
 				}catch(Exception e) {
 					System.out.println(e.getMessage());
-					Alert.showAlert(brandListItem.getScene(), "Error", "Was not possible to update the brand", "error", 5000);
+					Alert.showAlert(brandListItem.getScene(), "Error", "Could not update brand", "error", 5000);
 				}
 			}else {
 				Alert.showAlert(brandListItem.getScene(), "Warning", "There was no update!", "warning", 5000);

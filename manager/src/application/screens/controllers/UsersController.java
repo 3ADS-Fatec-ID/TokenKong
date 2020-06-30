@@ -1,11 +1,14 @@
 package application.screens.controllers;
 
+import java.io.File;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import application.Main;
 import application.DAO.DB;
+import application.components.DialogComponent.Dialog;
+import application.components.DialogComponent.UserFormDialogComponent.UserFormDialogController;
 import application.models.User;
 import application.models.User.Role;
 import application.models.User.Status;
@@ -17,6 +20,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -30,11 +35,11 @@ public class UsersController {
 	
 	private DB database = new DB();
 	public ObservableList<User> users = FXCollections.observableArrayList();
-	
+	public UserFormDialogController userFormDialogController;
 	@FXML 
 	public Button go_back;
 	@FXML
-	public Button add_user;
+	public Button userButton;
 	@FXML
 	public TableView<User> table;
 	@FXML
@@ -51,8 +56,8 @@ public class UsersController {
 	@FXML
 	public void initialize() {
 		
-		this.go_back.setOnMouseClicked(this.goBack());
-		this.add_user.setOnAction(this.openUserForm());
+		go_back.setOnMouseClicked(this.goBack());
+		userButton.setOnAction(this.openUserFormDialog(this));
 		
 		column_code.setCellValueFactory(new PropertyValueFactory<>("id"));
 		column_name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -64,8 +69,8 @@ public class UsersController {
 		this.loadUsers();
 	}
 	
-	private void loadUsers() {
-		
+	public void loadUsers() {
+		users.clear();
 		database.connect();
 		ResultSet resultSet = null;
 		
@@ -117,6 +122,36 @@ public class UsersController {
 		
 	}
 	
+	private EventHandler<ActionEvent> openUserFormDialog(UsersController usersController) {
+		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
+			@Override 
+			public void handle(ActionEvent event) {
+				try {
+										
+					FXMLLoader loader = new FXMLLoader();
+					userFormDialogController = new UserFormDialogController();
+					userFormDialogController.usersController = usersController;
+					loader.setController(userFormDialogController);
+					File file = new File("src\\application\\components\\DialogComponent\\UserFormDialogComponent\\UserFormDialog.fxml");
+					loader.setLocation(file.toURI().toURL());
+					VBox content = (VBox)loader.load();
+					HBox.setHgrow(content, Priority.ALWAYS);
+					
+					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Dialog.show(scene, content);
+					
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					
+					//show alert load error;
+					
+				}
+			}
+		};
+		
+		return eventHandler;
+	}
+	
 	private EventHandler<MouseEvent> goBack() {
 		EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() { 
 			@Override 
@@ -140,7 +175,7 @@ public class UsersController {
 		
 		return eventHandler;
 	}
-	
+	/*
 	private EventHandler<ActionEvent> openUserForm(){
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override 
@@ -168,6 +203,6 @@ public class UsersController {
 		};
 		
 		return eventHandler;
-	}
+	}*/
 	
 }

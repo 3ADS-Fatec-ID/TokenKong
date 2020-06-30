@@ -19,5 +19,5 @@
     -fx-background-color: transparent;
 }
 .drawer_button:hover{
-	-fx-background-color: #384b63;
+	-fx-background-color: derive(#384b63, -10%);
 }

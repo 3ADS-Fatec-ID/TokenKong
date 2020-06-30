@@ -63,9 +63,9 @@ public class ProductsController{
 			ArrayList<Product> products = ProductDAO.getAll();
 			products_grid.getChildren().clear();
 			for(Product product: products){
-				Node userCard = createCardComponent(product);
-				if(userCard != null)
-					products_grid.getChildren().add(userCard);			
+				Node prductCard = createCardComponent(product);
+				if(prductCard != null)
+					products_grid.getChildren().add(prductCard);			
 			}
 		}catch(Exception e) {
 			System.out.println(e.getMessage());

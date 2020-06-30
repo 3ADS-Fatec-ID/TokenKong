@@ -125,7 +125,7 @@
       </HBox>
       <HBox alignment="TOP_RIGHT">
          <children>
-            <Button fx:id="add_user" mnemonicParsing="false" text="New user">
+            <Button fx:id="userButton" mnemonicParsing="false" text="New user">
                <graphic>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>

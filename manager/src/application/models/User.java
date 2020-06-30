@@ -1,6 +1,5 @@
 package application.models;
 
-import application.DAO.UserDAO;
 
 public class User {
 	private Integer id;
@@ -58,19 +57,6 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-	
-	public boolean isAuthenticated(){
-		
-		boolean result = false;
-		try {
-			result = UserDAO.getUserByEmailAndPassword(this.name, this.password) != null;
-		}catch(Exception e) {
-			System.out.println(e.getMessage());
-			//show error message
-		}
-		
-		return result;
 	}
 	
 	public static class Role {

@@ -29,7 +29,7 @@
                <content>
                   <VBox alignment="TOP_RIGHT" prefWidth="160.0">
                      <children>
-                        <Button fx:id="toggle_drawer2" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#toggleDrawer" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" textFill="WHITE">
+                        <Button fx:id="toggle_drawer" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#toggleDrawer" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -41,7 +41,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="home_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showHomePage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
+                        <Button fx:id="home_button" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showHomeScreen" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Home" textFill="WHITE" VBox.vgrow="ALWAYS">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -53,19 +53,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="categories_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showCategoriesPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Categories" textFill="WHITE">
-                           <graphic>
-                              <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../assets/icons/light/view-grid-outline.png" />
-                                 </image>
-                              </ImageView>
-                           </graphic>
-                           <font>
-                              <Font name="Poppins Medium" size="16.0" />
-                           </font>
-                        </Button>
-                        <Button fx:id="products_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProductsPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Products" textFill="WHITE">
+                        <Button fx:id="products_button" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProductsScreen" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Products" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -77,7 +65,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="providers_button1" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProvidersPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Providers" textFill="WHITE">
+                        <Button fx:id="providers_button" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showProvidersScreen" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Providers" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
@@ -89,7 +77,7 @@
                               <Font name="Poppins Medium" size="16.0" />
                            </font>
                         </Button>
-                        <Button fx:id="users_button" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showUsersPage" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Users" textFill="WHITE">
+                        <Button fx:id="users_button" alignment="BASELINE_LEFT" graphicTextGap="10.0" mnemonicParsing="false" onAction="#showUsersScreen" prefHeight="24.0" prefWidth="160.0" styleClass="drawer_button" text="Users" textFill="WHITE">
                            <graphic>
                               <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                                  <image>

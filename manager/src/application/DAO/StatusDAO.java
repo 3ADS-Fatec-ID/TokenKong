@@ -5,18 +5,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import application.models.Brand;
+import application.models.User.Status;
 
-public class BrandDAO {
-	public static ArrayList<Brand> getAll() throws Exception{
-		ArrayList<Brand> brands = new ArrayList<Brand>();
+public class StatusDAO {
+	public static ArrayList<Status> getAll() throws Exception{
+		ArrayList<Status> statuses = new ArrayList<Status>();
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
 		query += "SELECT ";
 		query += "* ";
-		query += "FROM brand ";
+		query += "FROM user_status ";
 		query += "ORDER BY id DESC ";
 		
 		if(database.connection != null) {
@@ -25,7 +25,7 @@ public class BrandDAO {
 				
 				if (preparedStatement.execute()) {
 					ResultSet resultSet = preparedStatement.getResultSet();
-					brands = resultSetToBrandList(resultSet);	
+					statuses = resultSetToStatusList(resultSet);	
 				}
 				
 			}catch(Exception e) {
@@ -35,16 +35,16 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}
-		return brands;
+		return statuses;
 	}
 	
-	public static Brand insert( Brand brand ) throws Exception{
+	public static Status insert( Status status ) throws Exception{
 		
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
-		query += "INSERT INTO brand ";
+		query += "INSERT INTO user_status ";
 		query += "(name) VALUES ";
 		query += "(?) ";
 		
@@ -52,12 +52,12 @@ public class BrandDAO {
 			try{	
 				PreparedStatement preparedStatement = database.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 				
-				preparedStatement.setString(1, brand.name);
+				preparedStatement.setString(1, status.name);
 				preparedStatement.execute();
 				
 				try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
     	            if (generatedKeys.next()) {
-    	                brand.id = (int)generatedKeys.getLong(1);
+    	                status.id = (int)generatedKeys.getLong(1);
     	            } else {
     	                throw new Exception();
     	            }
@@ -71,16 +71,16 @@ public class BrandDAO {
 			}
 		}
 		
-		return brand;
+		return status;
 	}
 	
-	public static Brand update( Brand brand ) throws Exception{
+	public static Status update( Status status ) throws Exception{
 		
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
-		query += "UPDATE brand ";
+		query += "UPDATE user_status ";
 		query += "SET name = ? ";
 		query += "WHERE id = ? ";
 		
@@ -88,10 +88,10 @@ public class BrandDAO {
 			try{	
 				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
 				
-				preparedStatement.setString(1, brand.name);
-				preparedStatement.setInt(2, brand.id);
+				preparedStatement.setString(1, status.name);
+				preparedStatement.setInt(2, status.id);
 				if(preparedStatement.executeUpdate() <= 0) {
-					throw new Exception("Brand not updated!");
+					throw new Exception("Status not updated!");
 				}
 				
 			}catch(Exception e) {
@@ -101,9 +101,9 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}else {
-			throw new Exception("Brand not updated!");
+			throw new Exception("Status not updated!");
 		}
-		return brand;
+		return status;
 	}
 	
 	public static void delete( Integer id ) throws Exception{
@@ -112,7 +112,7 @@ public class BrandDAO {
 		database.connect();
 		
 		String query = "";
-		query += "DELETE FROM brand ";
+		query += "DELETE FROM user_status ";
 		query += "WHERE id = ? ";
 		
 		if(database.connection != null) {
@@ -130,21 +130,21 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}else {
-			throw new Exception("Brand not deleted!");
+			throw new Exception("Status not deleted!");
 		}
 	}
 	
-	private static ArrayList<Brand> resultSetToBrandList(ResultSet resultSet) throws Exception{
-		ArrayList<Brand> brands = new ArrayList<Brand>();
+	private static ArrayList<Status> resultSetToStatusList(ResultSet resultSet) throws Exception{
+		ArrayList<Status> statuses = new ArrayList<Status>();
 		
 		while (resultSet.next()) {
 			try {
-				Brand brand = new Brand(resultSet.getInt("id"), resultSet.getString("name"));
-				brands.add(brand);
+				Status status = new Status(resultSet.getInt("id"), resultSet.getString("name"));
+				statuses.add(status);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
 		}
-		return brands;
+		return statuses;
 	}
 }

@@ -2,6 +2,8 @@ package application.screens.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import application.DAO.UserDAO;
 import application.components.AlertComponent.Alert;
 import application.components.ConfirmComponent.Confirm;
 import application.components.DialogComponent.Dialog;
@@ -24,6 +26,9 @@ import javafx.stage.Stage;
 
 public class SigninController implements Initializable{
 	
+	public double xOffset = 0;
+	public double yOffset = 0;
+    
 	@FXML public ImageView close_button;
 	@FXML public TextField userName_textField;
 	@FXML public PasswordField password_passwordField;
@@ -55,18 +60,20 @@ public class SigninController implements Initializable{
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
+				
 				String userName = userName_textField.getText();
 				String password = password_passwordField.getText();
-				User user = new User();
-				user.setName(userName);
-				user.setPassword(password);
 				
-				if(user.isAuthenticated()) {
-					user = null;
-					openApp();
-				}else {
-					user = null;
-					System.out.println("Not authenticated!");
+				try {
+					User user = UserDAO.getUserByEmailAndPassword(userName, password);
+					if(user != null) {
+						UserDAO.saveLocalUserData(user);
+					    openApp();
+					}else {
+						System.out.println("Not authenticated!");
+					}
+				}catch(Exception e) {
+					System.out.println(e.getMessage());
 				}
 			}
 		};

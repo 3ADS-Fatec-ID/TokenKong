@@ -5,18 +5,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import application.models.Brand;
+import application.models.User.Role;
 
-public class BrandDAO {
-	public static ArrayList<Brand> getAll() throws Exception{
-		ArrayList<Brand> brands = new ArrayList<Brand>();
+public class RoleDAO {
+	public static ArrayList<Role> getAll() throws Exception{
+		ArrayList<Role> roles = new ArrayList<Role>();
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
 		query += "SELECT ";
 		query += "* ";
-		query += "FROM brand ";
+		query += "FROM user_role ";
 		query += "ORDER BY id DESC ";
 		
 		if(database.connection != null) {
@@ -25,7 +25,7 @@ public class BrandDAO {
 				
 				if (preparedStatement.execute()) {
 					ResultSet resultSet = preparedStatement.getResultSet();
-					brands = resultSetToBrandList(resultSet);	
+					roles = resultSetToRoleList(resultSet);	
 				}
 				
 			}catch(Exception e) {
@@ -35,16 +35,16 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}
-		return brands;
+		return roles;
 	}
 	
-	public static Brand insert( Brand brand ) throws Exception{
+	public static Role insert( Role role ) throws Exception{
 		
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
-		query += "INSERT INTO brand ";
+		query += "INSERT INTO role ";
 		query += "(name) VALUES ";
 		query += "(?) ";
 		
@@ -52,12 +52,12 @@ public class BrandDAO {
 			try{	
 				PreparedStatement preparedStatement = database.connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 				
-				preparedStatement.setString(1, brand.name);
+				preparedStatement.setString(1, role.name);
 				preparedStatement.execute();
 				
 				try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
     	            if (generatedKeys.next()) {
-    	                brand.id = (int)generatedKeys.getLong(1);
+    	                role.id = (int)generatedKeys.getLong(1);
     	            } else {
     	                throw new Exception();
     	            }
@@ -71,16 +71,16 @@ public class BrandDAO {
 			}
 		}
 		
-		return brand;
+		return role;
 	}
 	
-	public static Brand update( Brand brand ) throws Exception{
+	public static Role update( Role role ) throws Exception{
 		
 		DB database = new DB();
 		database.connect();
 		
 		String query = "";
-		query += "UPDATE brand ";
+		query += "UPDATE role ";
 		query += "SET name = ? ";
 		query += "WHERE id = ? ";
 		
@@ -88,8 +88,8 @@ public class BrandDAO {
 			try{	
 				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
 				
-				preparedStatement.setString(1, brand.name);
-				preparedStatement.setInt(2, brand.id);
+				preparedStatement.setString(1, role.name);
+				preparedStatement.setInt(2, role.id);
 				if(preparedStatement.executeUpdate() <= 0) {
 					throw new Exception("Brand not updated!");
 				}
@@ -101,9 +101,9 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}else {
-			throw new Exception("Brand not updated!");
+			throw new Exception("Status not updated!");
 		}
-		return brand;
+		return role;
 	}
 	
 	public static void delete( Integer id ) throws Exception{
@@ -112,7 +112,7 @@ public class BrandDAO {
 		database.connect();
 		
 		String query = "";
-		query += "DELETE FROM brand ";
+		query += "DELETE FROM role ";
 		query += "WHERE id = ? ";
 		
 		if(database.connection != null) {
@@ -130,21 +130,21 @@ public class BrandDAO {
 				database.disconnect();
 			}
 		}else {
-			throw new Exception("Brand not deleted!");
+			throw new Exception("Status not deleted!");
 		}
 	}
 	
-	private static ArrayList<Brand> resultSetToBrandList(ResultSet resultSet) throws Exception{
-		ArrayList<Brand> brands = new ArrayList<Brand>();
+	private static ArrayList<Role> resultSetToRoleList(ResultSet resultSet) throws Exception{
+		ArrayList<Role> roles = new ArrayList<Role>();
 		
 		while (resultSet.next()) {
 			try {
-				Brand brand = new Brand(resultSet.getInt("id"), resultSet.getString("name"));
-				brands.add(brand);
+				Role role = new Role(resultSet.getInt("id"), resultSet.getString("name"));
+				roles.add(role);
 			}catch(Exception e) {
 				System.out.println(e.getMessage());
 			}
 		}
-		return brands;
+		return roles;
 	}
 }

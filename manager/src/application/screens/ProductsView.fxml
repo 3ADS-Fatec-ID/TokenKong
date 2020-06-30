@@ -206,7 +206,7 @@
                <children>
                   <HBox VBox.vgrow="ALWAYS">
                      <padding>
-                        <Insets bottom="30.0" left="30.0" right="30.0" />
+                        <Insets bottom="30.0" left="30.0" right="30.0" top="10.0" />
                      </padding>
                      <children>
                         <FlowPane fx:id="products_grid" hgap="10.0" prefWrapLength="0.0" style="-fx-background-color: #f00;" vgap="10.0" HBox.hgrow="ALWAYS">
@@ -219,9 +219,6 @@
                </children>
             </VBox>
          </content>
-         <padding>
-            <Insets top="10.0" />
-         </padding>
       </ScrollPane>
    </children>
    <stylesheets>

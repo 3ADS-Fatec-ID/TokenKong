@@ -23,6 +23,7 @@ public class Product {
 	private Category category = new Category(null, null);
 	private Brand brand = new Brand(null, null);
 	private String name = null;
+	private String password = null;
 	private String description = null;
 	private ArrayList<ProductImage> images = new ArrayList<ProductImage>();
 	
@@ -35,6 +36,12 @@ public class Product {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public Category getCategory() {
 		return category;

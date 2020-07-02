@@ -1,18 +1,14 @@
 package application.screens.controllers;
 
 import java.io.File;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 import application.Main;
-import application.DAO.DB;
+import application.DAO.UserDAO;
+import application.components.AlertComponent.Alert;
 import application.components.DialogComponent.Dialog;
 import application.components.DialogComponent.UserFormDialogComponent.UserFormDialogController;
 import application.models.User;
-import application.models.User.Role;
-import application.models.User.Status;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,12 +16,15 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -33,7 +32,6 @@ import javafx.scene.layout.VBox;
 
 public class UsersController {
 	
-	private DB database = new DB();
 	public ObservableList<User> users = FXCollections.observableArrayList();
 	public UserFormDialogController userFormDialogController;
 	@FXML 
@@ -57,7 +55,7 @@ public class UsersController {
 	public void initialize() {
 		
 		go_back.setOnMouseClicked(this.goBack());
-		userButton.setOnAction(this.openUserFormDialog(this));
+		userButton.setOnAction(this.openUserFormDialog(this, null));
 		
 		column_code.setCellValueFactory(new PropertyValueFactory<>("id"));
 		column_name.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -66,63 +64,58 @@ public class UsersController {
 		column_status.setCellValueFactory(user -> new SimpleStringProperty(user.getValue().getStatus().name));
 		table.setItems(users);
 		
+		table.setRowFactory(tv -> {
+		    TableRow<User> row = new TableRow<>();
+		    UsersController usersController = this;
+            
+		    row.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+			    @Override
+			    public void handle(MouseEvent event) {
+			    	if (! row.isEmpty() && event.getButton()==MouseButton.SECONDARY) {
+			            User user = row.getItem();
+			            
+			            ContextMenu contextMenu = new ContextMenu();
+						MenuItem item = new MenuItem("Editar");
+						item.setOnAction(openUserFormDialog(usersController, user));
+						item.setOnAction(openUserFormDialog(usersController, user));
+						contextMenu.getItems().add(item);
+						
+			            contextMenu.show(row, event.getScreenX(), event.getScreenY());
+			        }
+			    }
+			});
+		    return row ;
+		});
+		
 		this.loadUsers();
 	}
 	
 	public void loadUsers() {
-		users.clear();
-		database.connect();
-		ResultSet resultSet = null;
-		
-		String query = "";
-		query += "SELECT ";
-		query += "U.*, ";
-		query += "UR.name as role_name, ";
-		query += "US.name as status_name ";
-		query += "FROM user as U ";
-		query += "INNER JOIN user_status as US ";
-		query += "ON U.status_id = US.id ";
-		query += "INNER JOIN user_role as UR ";
-		query += "ON U.role_id = UR.id ";
-		query += "WHERE US.id != 4";
-		
-		if(this.database.connection != null) {
-			try{				
-				PreparedStatement preparedStatement = database.connection.prepareStatement(query);
-				if (preparedStatement.execute()) {
-					
-					resultSet = preparedStatement.getResultSet();
-					if(resultSet != null) {
-						
-						while (resultSet.next()) {
-							User user = new User();
-							user.setId(resultSet.getInt("id"));
-							user.setName(resultSet.getString("name"));
-							user.setEmail(resultSet.getString("email"));
-							user.setRole( new Role(
-								resultSet.getInt("role_id"),
-								resultSet.getString("role_name")
-							));
-							user.setStatus( new Status(
-								resultSet.getInt("status_id"),
-								resultSet.getString("status_name")
-							));
-							
-							users.add(user);
-						}
-						
-					}
-				}
-			}catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}finally {
-				database.disconnect();
-			}	
+		Scene scene = userButton.getScene();
+		this.users.clear();
+		try {
+			ArrayList<User> users = UserDAO.getAll();
+			for(User user : users) {
+				this.users.add(user);
+			}
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			Alert.showAlert(scene, "Error", "Could not list products", "error", 5000);
 		}
-		
 	}
 	
-	private EventHandler<ActionEvent> openUserFormDialog(UsersController usersController) {
+	public void deleteUser(User user) {
+		Scene scene = userButton.getScene();
+		try {
+			UserDAO.delete(user.getId());
+			Alert.showAlert(scene, "Success", "User successfully deleted!", "error", 5000);
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			Alert.showAlert(scene, "Error", "The product could not be deleted", "error", 5000);
+		}
+	}
+	
+	private EventHandler<ActionEvent> openUserFormDialog(UsersController usersController, User user) {
 		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() { 
 			@Override 
 			public void handle(ActionEvent event) {
@@ -131,13 +124,14 @@ public class UsersController {
 					FXMLLoader loader = new FXMLLoader();
 					userFormDialogController = new UserFormDialogController();
 					userFormDialogController.usersController = usersController;
+					if(user != null) userFormDialogController.setUser(user);
 					loader.setController(userFormDialogController);
 					File file = new File("src\\application\\components\\DialogComponent\\UserFormDialogComponent\\UserFormDialog.fxml");
 					loader.setLocation(file.toURI().toURL());
 					VBox content = (VBox)loader.load();
 					HBox.setHgrow(content, Priority.ALWAYS);
 					
-					Scene scene = (Scene)((Node)event.getSource()).getScene();
+					Scene scene = (Scene)table.getScene();
 					Dialog.show(scene, content);
 					
 				} catch (Exception e) {
@@ -175,34 +169,5 @@ public class UsersController {
 		
 		return eventHandler;
 	}
-	/*
-	private EventHandler<ActionEvent> openUserForm(){
-		EventHandler<ActionEvent> eventHandler = new EventHandler<ActionEvent>() {
-			@Override 
-			public void handle(ActionEvent event) {
-				
-				HBox pagesParent = (HBox)Main.getPagesParent(event);
-				
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/application/screens/UserFormView.fxml"));
-					UserFormController userFormController = new UserFormController();
-					fxmlLoader.setController(userFormController);
-					VBox page = fxmlLoader.load();
-					
-					HBox.setHgrow(page, Priority.ALWAYS);
-					
-					if(pagesParent.getChildren().isEmpty()) {
-						pagesParent.getChildren().add(page);
-					}else {
-						pagesParent.getChildren().set(0, page);			
-					}
-				}catch(Exception e) {
-					System.out.println(e.getMessage());
-				}
-			}
-		};
-		
-		return eventHandler;
-	}*/
 	
 }

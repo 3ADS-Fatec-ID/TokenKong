@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -45,8 +46,8 @@ public class UserFormDialogController {
 	@FXML public Button deleteButton;
 	@FXML public TextField userName;
 	@FXML public TextField userEmail;
-	@FXML public TextField userPassword;
-	@FXML public TextField userConfirm;
+	@FXML public PasswordField userPassword;
+	@FXML public PasswordField userConfirm;
 	@FXML public ChoiceBox<String> userRole;
 	@FXML public ChoiceBox<String> userStatus;
 	
@@ -59,13 +60,29 @@ public class UserFormDialogController {
 	private void setInitialFormValues() {
 		editing = (this.user.getId() != null);
 		if(editing) {
-			headerTitle.setText("Edit User");
-			userName.setText(user.getName());
-			userEmail.setText(user.getEmail());
-			userPassword.setText(user.getPassword());
-			userConfirm.setText(user.getPassword());
-			userRole.setValue(user.getRole().name);
-			userStatus.setValue(user.getStatus().name);
+			User iUser;
+			try {
+				headerTitle.setText("Edit User");
+				
+				iUser = UserDAO.getLocalUserData();
+				if(iUser != null && iUser.getId() != this.user.getId()) {
+					userPassword.setDisable(true);
+					userConfirm.setDisable(true);
+				}else {
+					userStatus.setDisable(true);
+					userRole.setDisable(true);
+				}
+				userRole.setValue(user.getRole().name);
+				userStatus.setValue(user.getStatus().name);
+				
+				userName.setText(user.getName());
+				userEmail.setText(user.getEmail());
+				userPassword.setText(user.getPassword());
+				userConfirm.setText(user.getPassword());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}else {
 			headerTitle.setText("New User");
 		}
@@ -183,6 +200,7 @@ public class UserFormDialogController {
 			
 			User user = new User();
 			user.setId(this.user.getId());
+			user.setEmail(userEmail.getText());
 			user.setName(userName.getText());
 			if(chosenRole != null)
 				user.setRole(chosenRole);

@@ -37,25 +37,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button id="reload_button" mnemonicParsing="false" prefHeight="28.0" prefWidth="28.0">
-               <graphic>
-                  <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../assets/icons/light/reload.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </graphic>
-               <HBox.margin>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
-               </HBox.margin>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <HBox id="breadcrumb" alignment="CENTER_LEFT" maxHeight="28.0" prefHeight="28.0">
+            <HBox alignment="CENTER_LEFT" maxHeight="28.0" prefHeight="28.0">
                <children>
                   <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -82,10 +64,10 @@
                   </Label>
                </children>
                <padding>
-                  <Insets left="4.0" right="10.0" />
+                  <Insets right="10.0" />
                </padding>
                <HBox.margin>
-                  <Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+                  <Insets bottom="4.0" right="4.0" top="4.0" />
                </HBox.margin>
             </HBox>
          </children>

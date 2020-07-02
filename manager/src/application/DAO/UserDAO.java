@@ -36,7 +36,7 @@ public class UserDAO {
 		query += "ON UR.id = U.role_id ";
 		query += "INNER JOIN user_status as US ";
 		query += "ON US.id = U.status_id ";
-		query += "WHERE (U.name = ? OR U.email = ?) AND U.password = ? AND U.status_id NOT IN (3, 4) ";
+		query += "WHERE (U.name = ? OR U.email = ?) AND U.password = ? ";
 		
 		if(database.connection != null) {
 			
@@ -231,20 +231,14 @@ public class UserDAO {
 			try {
 				
 				String queryUpdate = "";
-				queryUpdate += "INSERT INTO user ( ";
-				queryUpdate += "name, ";
-				queryUpdate += "email, ";
-				queryUpdate += "password ";
+				queryUpdate += "UPDATE user SET ";
+				queryUpdate += "name = ?, ";
+				queryUpdate += "email = ?, ";
+				queryUpdate += "password = ? ";
 				if( user.getRole().id != null )
-					queryUpdate += ", role_id ";
+					queryUpdate += ", role_id = ? ";
 				if( user.getStatus().id != null )
-					queryUpdate += ", status_id ";
-				queryUpdate += ") values ( ?, ?, ? ";
-				if( user.getRole().id != null )
-					queryUpdate += ", ? ";
-				if( user.getStatus().id != null )
-					queryUpdate += ", ? ";
-				queryUpdate += ") ";
+					queryUpdate += ", status_id = ? ";
 				queryUpdate += "WHERE id = ? ";
 				
 				pstmtUpdate = database.connection.prepareStatement(queryUpdate);
@@ -257,12 +251,14 @@ public class UserDAO {
 					pstmtUpdate.setInt	(i, user.getRole().id);
 					i += 1;
 				}
-				if( user.getStatus().id != null )
+				if( user.getStatus().id != null ) {
 					pstmtUpdate.setInt	(i, user.getStatus().id);
+					i += 1;
+				}
+				
+				pstmtUpdate.setInt	(i, user.getId());
 				
 				pstmtUpdate.execute();
-				
-				database.connection.commit();
 				
 			}catch(Exception e) {
 				e.printStackTrace();

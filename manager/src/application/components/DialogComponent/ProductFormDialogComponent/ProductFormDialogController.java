@@ -211,7 +211,7 @@ public class ProductFormDialogController {
 			}
 		};
 		
-		Confirm.show(scene, "Warning", "Are you shure that you realy want to delete this product?", "warning", true, callback);
+		Confirm.show(scene, "Warning", "Want to delete this product?", "warning", true, callback);
 	}
 	
 	private void submit(Event event){
@@ -251,9 +251,9 @@ public class ProductFormDialogController {
 					productImages = new ArrayList<ProductImage>();
 				imagePickerController.setImages(productImages);
 				
-				Alert.showAlert(scene, "Success", "Product was successfully updated!", "success", 5000);
+				Alert.showAlert(scene, "Success", "Product successfully updated!", "success", 5000);
 			}else {
-				Alert.showAlert(scene, "Success", "Product was successfully updated!", "success", 5000);
+				Alert.showAlert(scene, "Success", "Product successfully updated!", "success", 5000);
 				Dialog.close(scene, closeDialog);
 			}
 			
@@ -291,9 +291,9 @@ public class ProductFormDialogController {
 					productImages = new ArrayList<ProductImage>();
 				imagePickerController.setImages(productImages);
 				
-				Alert.showAlert(scene, "Success", "Product was successfully created!", "success", 5000);
+				Alert.showAlert(scene, "Success", "Product successfully created!", "success", 5000);
 			}else {
-				Alert.showAlert(scene, "Success", "Product was successfully created!", "success", 5000);
+				Alert.showAlert(scene, "Success", "Product successfully created!", "success", 5000);
 				Dialog.close(scene, closeDialog);
 			}
 			

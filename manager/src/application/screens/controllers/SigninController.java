@@ -18,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -34,6 +35,7 @@ public class SigninController implements Initializable{
 	@FXML public PasswordField password_passwordField;
 	@FXML public CheckBox rememberMe_checkBox;
 	@FXML public Button signin_button;
+	@FXML public Label warning_label;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -63,17 +65,22 @@ public class SigninController implements Initializable{
 				
 				String userName = userName_textField.getText();
 				String password = password_passwordField.getText();
-				
-				try {
-					User user = UserDAO.getUserByEmailAndPassword(userName, password);
-					if(user != null) {
-						UserDAO.saveLocalUserData(user);
-					    openApp();
-					}else {
-						System.out.println("Not authenticated!");
+				if(userName.isEmpty() || password.isEmpty()) {
+					warning_label.setText("Please check your email and password");
+				}else {
+					try {
+						User user = UserDAO.getUserByEmailAndPassword(userName, password);
+						if(user != null && user.getStatus().id != 2) {
+							UserDAO.saveLocalUserData(user);
+						    openApp();
+						}else if(user != null && user.getStatus().id == 2) {
+							warning_label.setText("Not authenticated");
+						}else {
+							warning_label.setText("Please check your email and password");
+						}
+					}catch(Exception e) {
+						System.out.println(e.getMessage());
 					}
-				}catch(Exception e) {
-					System.out.println(e.getMessage());
 				}
 			}
 		};
